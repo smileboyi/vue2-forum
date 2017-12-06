@@ -1,0 +1,305 @@
+@charset "utf-8";
+/* CSS Document */
+body,div,ul,ol,ul,li,ol,dl,dd,dt,form,span,p,textarea{margin:0;padding:0;list-style:none;}
+address,caption,cite,code,dfn,th,var{font-style:normal;font-weight:normal;}
+h1,h2,h3,h4,h5,h6{margin:0;padding:0;}
+input{padding-top:0;padding-bottom:0;}
+input::-moz-focus-inner{border:none;padding:0;}
+select,input{vertical-align:middle;}
+select,input,textarea{font-size: 0.1875rem;margin:0;}
+input[type="text"],input[type="password"],textarea{outline-style:none;-webkit-appearance:none;}
+textarea{resize:none;}
+table{border-collapse:collapse;border-spacing:0;}
+/*th,td{font-size: 0.1875rem;padding:0}*/
+img,a img{border:0;margin:0;padding:0;}
+img{border:none;}
+a:link,a:active{text-decoration:none;}
+a:visited{text-decoration:none;}
+a{text-decoration:none;-webkit-touch-callout:none;}
+
+input:-webkit-autofill,select:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 15.6250rem white  inset !important;
+    box-shadow: 0 0 0px 15.6250rem white  inset !important;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button{
+    -webkit-appearance: none !important;
+    margin: 0; 
+}
+
+
+
+/**********面向属性的css begin**********/
+.pab{
+	position: absolute;
+}
+.pre{
+	position: relative;
+}
+.pfi{
+	position: fixed;
+}
+.not{
+	top:0;
+}
+.nob{
+	bottom:0;
+}
+.nol{
+	left:0;
+}
+.nor{
+	right:0;
+}
+.noaf:after{
+	display: none !important;
+}
+.nobe:before{
+	display: none !important;
+}
+.vsh{
+	visibility: hidden;
+}
+/* 块状元素水平居中 */
+.wauto{
+	margin-right: auto;
+	margin-left: auto;
+}
+.wauto2{
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	transform: translateX(-50%);
+}
+/* 元素垂直居中 */
+.hauto{
+	display: table-cell;
+	vertical-align: middle;
+}
+.hauto2{
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+/* 不定高宽元素水平垂直居中1 */
+.centre1{
+	bottom: 0;
+	right: 0;
+	left: 0;
+	top: 0;
+	margin: auto;
+}
+/* 不定高宽元素水平垂直居中2 */
+.centre2{
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+.fl{
+	float: left;
+}
+.fr{
+	float: right;
+}
+.fn{
+	float: none;
+}
+/* 清除浮动*/
+.fix{
+	*zoom:1;
+}
+.fix:after{
+	display:table;
+	content:'';
+	clear:both;
+}
+.db{
+	display: block;
+}
+.dib{
+	display: inline-block;
+}
+.tb{
+	display: table;
+}
+/*没有间隔的inline-block*/
+.dib2{
+	display: inline-block;
+	font-size: 0;
+	letter-spacing: normal;
+	word-spacing: normal;
+}
+/* 横向flex */
+.flex{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-justify-content: space-between;
+	justify-content: space-between;
+}
+/* 纵向flex(圣杯) */
+.grail{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	min-height: 100%;
+	flex-direction: column;
+	align-content: space-between;
+	-webkit-justify-content: space-between;
+	justify-content: space-between;
+}
+.fe{
+	-webkit-flex: 1;
+	flex: 1;
+}
+.dn{
+	display: none;
+}
+.w20{
+	width: 20%;
+}
+.w25{
+	width: 25%;
+}
+.w50{
+	width: 50%;
+}
+.w75{
+	width: 75%;
+}
+.w100{
+	width: 100%;
+}
+.h100{
+	height: 100%;
+}
+.wh100{
+	width: 100%;
+	height: 100%;
+}
+.fsn{
+	font-style:normal;
+}
+.fwn{
+	font-weight:normal;
+}
+.tl{
+	text-align: left;
+}
+.tc{
+	text-align: center;
+}
+.tr{
+	text-align: right;
+}
+/* 单行文字溢出虚点显示 */
+.ell{
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	word-wrap: normal;
+	overflow:hidden;
+}
+.ell2{
+	position: relative;
+	line-height: 0.2813rem;
+	height: 0.5625rem;
+	overflow: hidden;
+
+}
+.ell2:after{
+	content:"...";
+	font-weight:bold;
+	position:absolute;
+	bottom:0;
+	right:0;
+	padding:0 0.3125rem 0.0156rem 0.7031rem;
+	/* background:url(../images/ellipsis_bg.png) repeat-y;  需要一个省略号的图标*/
+}
+.contain{
+    -webkit-background-size: contain;
+    background-size: contain;
+}
+.cover{
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+.notext {
+	text-align: left;
+	letter-spacing: -3em;
+	overflow: hidden;
+}
+.notext:first-letter {
+	margin-left: -20em;
+}
+/* 针对单个小图标 */
+.icon{
+	background-repeat: no-repeat;
+	background-position: center;
+	-webkit-background-size: cover;
+	background-size: cover;
+}
+/* css3过渡动画效果 */
+.trans{
+	-webkit-transition:all 0.3s;
+    transition:all 0.3s;
+}
+.ovh{
+	overflow: hidden;
+}
+.ovv{
+	overflow: visible;
+}
+.ovs{
+	overflow: scroll;
+}
+.ova{
+	overflow: auto;
+}
+.nobd{
+	border: none;
+}
+.bde{
+	border: 0.0156rem solid #eee;
+}
+.bdc{
+	border: 0.0156rem solid #ccc;
+}
+.bdd{
+	border: 0.0156rem solid #ddd;
+}
+.z10{
+	z-index: 10;
+}
+.z50{
+	z-index: 50;
+}
+.z100{
+	z-index: 100;
+}
+.z200{
+	z-index: 200;
+}
+.z500{
+	z-index: 500;
+}
+.z1000{
+	z-index: 1000;
+}
+/* 一般使用伪类放图标 */
+.ai:after,
+.bi:before {
+	content: '';
+	display: inline-block;
+	background-repeat: no-repeat;
+	background-position: center;
+	-webkit-background-size: cover;
+	background-size: cover;
+}
+.bsb{
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.bgctp{
+	background-color: transparent;
+}
+/**********面向属性的css end**********/
