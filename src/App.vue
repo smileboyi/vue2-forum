@@ -1,38 +1,31 @@
 <template>
-  <div id="app">
+  <div id="app" class="h100 grail">
     <appBar />
-
-    <resetPage />
-
-    <router-view/>
-    <bottom-nav />
+    <!-- 信息发表组件 -->
+    <releasePage/>
+    <div class="fe">
+      <!-- 底部导航切换的页面组件 -->
+      <router-view />
+    </div>
+    <bottomNav />
   </div>
 </template>
 
 <script>
 import appBar from './components/appBar'
-import resetPage from './components/resetPage'
+import releasePage from './pages/release/release'
 import bottomNav from './components/bottomNav'
-
-
 
 export default {
   name: 'app',
   components:{
     appBar,
-    resetPage,
+    releasePage,
     bottomNav
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="less" scoped>
+
 </style>
