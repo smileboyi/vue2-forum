@@ -10,16 +10,10 @@
 </template>
 
 <script>
-import appBar from './components/appBar'
-import releasePage from './pages/release/release'
-import bottomNav from './components/bottomNav'
 
 export default {
-  name: 'app',
   components:{
-    appBar,
-    releasePage,
-    bottomNav
+
   }
 }
 </script>
