@@ -7,13 +7,15 @@ import store from './vuex'
 
 Vue.config.productionTip = false
 
-
-// base.css
-import './assets/css/base.css'       
+ 
 // muse-ui
 import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
 Vue.use(MuseUI)
+
+// base.css、animate.css
+import './assets/css/base.css' 
+import 'animate.css'      
 
 // axios
 import axios from 'axios'

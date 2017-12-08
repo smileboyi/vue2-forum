@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import topics from './modules/topics'
+import login from './modules/login'
 
 
 Vue.use(Vuex);
@@ -9,7 +9,7 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   modules:{
-    topics,
+    login,
   }
 })
 
