@@ -1,8 +1,10 @@
 <template>
   <div class="login">
-  <mu-popup position="bottom" :overlay="false" popupClass="info-popup tc" :open="buttomPopup">
-    <mu-content-block><p>登录成功</p></mu-content-block>
-  </mu-popup>
+    <infoPopup 
+      :openpopup="isopen" 
+      :infostate="true" 
+      infotext="登录成功44"
+    />
     <div class="access-token tc">
       <mu-icon 
         class="lock-icon pre" 
@@ -37,7 +39,7 @@
   </div>
 </template>
 <script>
-
+import infoPopup from "../../components/infoPopup"
 
 export default {
   data(){
@@ -46,7 +48,7 @@ export default {
       active:false,
       isShow:false,
       isLogin:false,
-      buttomPopup:false
+      isopen:false,
     }
   },
   methods: {
@@ -64,14 +66,17 @@ export default {
     },
     handleHowGet(){
       this.isShow = !this.isShow;
+      this.isopen = !this.isopen;
     },
     handleLogin(){
-      this.buttomPopup = true;
       let at = this.accessToken.trim();
       if(at==""){
         
       }
     }
+  },
+  components: {
+    infoPopup
   }
 }
 </script>
@@ -122,15 +127,4 @@ export default {
     }
   }
 
-
-  .info-popup{
-    background-color: #42b884;
-    line-height: 55px;
-    width: 100%;
-    padding: 0 22px;
-    color: #fff;
-    .mu-content-block{
-      background-color: #42b884;
-    }
-  }
 </style>
