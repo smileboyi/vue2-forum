@@ -1,19 +1,17 @@
 import * as types from '../constants/types'
 
-export const loginMutations = {
-  [types.FETCH_LOGIN_SUC](state, action){
-    state.loginState = true;
-    state.userinfo = action.data;
-    state.msg = action.msg;
+
+const loginMutations = {
+  [types.SHOW_INFOPOPUP](state, action){
+    state.isopen = true;
   },
-  [types.FETCH_LOGIN_ERR](state, action){
-    state.loginState = false;
-    state.msg = action.error;
+  [types.HIDE_INFOPOPUP](state, action){
+    state.isopen = false;
   },
   [types.USER_LOGOUT](state){
     state.loginState = false;
   }
 }
 
-
+export default loginMutations;
 

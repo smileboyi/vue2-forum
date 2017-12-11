@@ -1,5 +1,8 @@
 import * as types from '../constants/types'
 
-export const loginGetters = {
+
+const loginGetters = {
   
 }
+
+export default loginGetters;

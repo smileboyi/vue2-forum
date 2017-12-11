@@ -6,11 +6,12 @@
 		<mu-popup 
 			position="bottom" 
 			:overlay="false"
-			:popupClass="popupClass"
-			:open="openpopup"
+			popupClass="info-popup tc"
+			:open="common.infopopup.isopen"
+			:style="{ bottom: common.infopopup.bottomclass }"
 		>
-				<mu-content-block>
-					<p class="info-text">{{ infotext }}</p>
+				<mu-content-block :class="{ 'error-info-content-class':!common.infopopup.infostate }">
+					<p class="info-text">{{ common.infopopup.infomsg || '&nbsp;' }}</p>
 				</mu-content-block>
 		</mu-popup>
 	</transition>
@@ -23,48 +24,24 @@
     color: #fff;
 		text-align: left;
     .mu-content-block{
-      background-color: #42b884;
+			background-color: #42b884;
+  		&.error-info-content-class{
+				background-color: #e96900;
+			}
       .info-text{
         padding: 0 10px;
       }
     }
   }
-  .error-info-class{
-		bottom: 55px;
-		.mu-content-block{
-			background-color: #e96900;
-		}
-	}
 </style>
 <script>
-import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
-    props: {
-        openpopup: Boolean,
-        infostate: Boolean,
-				infotext: String
-		},
-		data: function(){
-			return {
-				isexist: false,
-				popupClass: "info-popup tc "
-			}
-		},
-		mounted: function(){
-			let _popupClass = this.popupClass;
-			_popupClass = this.$props.infostate 
-				? _popupClass + "error-info-class"
-				: _popupClass;
-			this.popupClass = _popupClass;
-			this.timer = setTimeout(function(){
-				this.isexist = true;
-			},2000)
-		 },
-		 watch: {
-			 isexist: function(val){
-				 
-			 }
-		 }
+		computed: {
+        ...mapState([
+            'common'
+        ]),
+    }
 }
 </script>

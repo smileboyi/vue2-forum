@@ -1,10 +1,6 @@
 <template>
   <div class="login">
-    <infoPopup 
-      :openpopup="isopen" 
-      :infostate="true" 
-      infotext="登录成功44"
-    />
+    <infoPopup v-show="common.infopopup.isopen">65987967</infoPopup>
     <div class="access-token tc">
       <mu-icon 
         class="lock-icon pre" 
@@ -39,6 +35,7 @@
   </div>
 </template>
 <script>
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 import infoPopup from "../../components/infoPopup"
 
 export default {
@@ -51,9 +48,15 @@ export default {
       isopen:false,
     }
   },
+  computed: {
+    ...mapState([
+        'login',
+        'common'
+    ])
+  },
   methods: {
     handlechange(val){
-
+      this.accessToken = val;
     },
     handleInput(val){
       this.accessToken = val;
@@ -66,7 +69,13 @@ export default {
     },
     handleHowGet(){
       this.isShow = !this.isShow;
-      this.isopen = !this.isopen;
+      // this.$store.commit("SHOW_INFOPOPUP");
+      this.$store.dispatch('showInfoPopup', {
+        isopen: true,
+        msg: 'accesstoken 不能为空',
+        state: false,
+        position: '55px'
+      })
     },
     handleLogin(){
       let at = this.accessToken.trim();
