@@ -3,17 +3,15 @@
 		enter-active-class="animated slideInUp"
 		leave-active-class="animated slideOutDown"
 	>
-		<mu-popup 
-			position="bottom" 
-			:overlay="false"
-			popupClass="info-popup tc"
-			:open="common.infopopup.isopen"
-			:style="{ bottom: common.infopopup.bottomclass }"
+		<mu-content-block 
+			class="info-popup pfi nob z50" 
+			:class="{ 'error-info-content-class':!common.infopopup.infostate }"
+			:style="{ bottom: common.infopopup.bottom }"
 		>
-				<mu-content-block :class="{ 'error-info-content-class':!common.infopopup.infostate }">
-					<p class="info-text">{{ common.infopopup.infomsg || '&nbsp;' }}</p>
-				</mu-content-block>
-		</mu-popup>
+			<p class="info-text">
+				{{ common.infopopup.infomsg }}
+			</p>
+		</mu-content-block>
 	</transition>
 </template>
 <style lang="less">
@@ -23,16 +21,14 @@
     font-size: 1rem;
     color: #fff;
 		text-align: left;
-    .mu-content-block{
-			background-color: #42b884;
-  		&.error-info-content-class{
-				background-color: #e96900;
-			}
-      .info-text{
-        padding: 0 10px;
-      }
-    }
-  }
+		background-color: #42b884;
+		&.error-info-content-class{
+			background-color: #e96900;
+		}
+		.info-text{
+			padding: 0 10px;
+		}
+	}
 </style>
 <script>
 import { mapState } from 'vuex'

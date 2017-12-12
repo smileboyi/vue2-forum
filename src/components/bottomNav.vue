@@ -28,7 +28,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
   .mu-bottom-nav-shift{
     background-color: #1f2d3d;
     .mu-buttom-item-wrapper{

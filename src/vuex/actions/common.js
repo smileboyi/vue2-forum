@@ -15,8 +15,8 @@ const commomActions = {
     commit(types.DEFINE_INFOPOPUP_STATE, { 
       infostate: params.state
     });
-    commit(types.DEFINE_INFOPOPUP_POSITION, { 
-      bottomclass: params.position
+    commit(types.DEFINE_INFOPOPUP_BOTTOM, { 
+      bottom: params.bottom
     });
 
     // 2秒后消失

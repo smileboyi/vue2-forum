@@ -1,139 +1,100 @@
 <template>
-  <div class="login">
-    <infoPopup v-show="common.infopopup.isopen">65987967</infoPopup>
-    <div class="access-token tc">
-      <mu-icon 
-        class="lock-icon pre" 
-        :class="{ac:active}" 
-        value="lock_outline"
-      />
-      <mu-text-field 
-        hintText="accessToken" 
-        v-model="accessToken"
-        @change="handlechange"
-        @focus="handlefocus"
-        @blur="handleblur"
-        class="tl"
-      />
-    </div>
-    <div class="pre">
-      <mu-raised-button label="注册" class="tc wauto" href="https://www.vue-js.com/" />
-      <mu-raised-button label="登录" class="tc wauto" @click="handleLogin" />
-      <mu-circular-progress class="pfi centre1" v-if="isLogin" color="#41b883" :size="40"/>
-    </div>
-    <p class="how-get" @click="handleHowGet">
-      <mu-icon value="help" :size="18" color="#e96900"></mu-icon>
-      如何获取 accessToken？
-    </p>
-    <transition enter-active-class="animated flipInX" leave-active-class="animated flipOutX">
-      <div class="tip" v-show="isShow">
-        <a class="vue-link" href="https://www.vue-js.com/">官方网站</a>登录后，
-        在设置页面可以看到自己的<b>accessToken</b>。<br />
-        将<b>accessToken</b>复制，粘贴到⬆文本框，即可登录。
+  <div>
+    <mu-flexbox class="user-flex">
+      <div class="user-photo">
+        <img class="wh100" src="/static/avatar2.jpg" alt="user">
       </div>
-    </transition>
+      <div class="user-info pre fe">
+        <div class="user-name"><b>smileboyi</b></div>
+        <div class="user-id">ID: c6f42acd-2681-43f2-a4e8-0e66360649c0</div>
+        <div class="user-score pab nor flex">
+          <mu-icon value="stars" color="#fcc015" :size="18" />
+          563
+        </div>
+      </div>
+    </mu-flexbox>
+    <mu-list class="topic-list">
+      <mu-list-item title="我收藏的话题" afterTextClass="topic-num" afterText="65">
+        <mu-icon value="star" :size="20" style="color: #fcc015" slot="left"/>
+        <mu-icon value="navigate_next" color="#D3DCE6" slot="right" />
+      </mu-list-item>
+      <mu-list-item title="我参与的话题" afterTextClass="topic-num" afterText="5">
+        <mu-icon value="chat" :size="20" style="color: #00b1fe" slot="left"/>
+        <mu-icon value="navigate_next" color="#D3DCE6" slot="right" />
+      </mu-list-item>
+      <mu-list-item title="我最近的话题" afterTextClass="topic-num" afterText="5">
+        <mu-icon value="bubble_chart" :size="20" style="color: #f86161" slot="left"/>
+        <mu-icon value="navigate_next" color="#D3DCE6" slot="right" />
+      </mu-list-item>
+    </mu-list>
+    <mu-flat-button label="退出登录" class="logout-button w100" />
   </div>
 </template>
-<script>
-import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
-import infoPopup from "../../components/infoPopup"
 
+<script>
+import { mapState } from 'vuex'
 export default {
-  data(){
-    return{
-      accessToken:'',
-      active:false,
-      isShow:false,
-      isLogin:false,
-      isopen:false,
-    }
-  },
   computed: {
     ...mapState([
-        'login',
         'common'
-    ])
-  },
-  methods: {
-    handlechange(val){
-      this.accessToken = val;
-    },
-    handleInput(val){
-      this.accessToken = val;
-    },
-    handlefocus(val){
-      this.active = true;
-    },
-    handleblur(){
-      this.active = false;
-    },
-    handleHowGet(){
-      this.isShow = !this.isShow;
-      // this.$store.commit("SHOW_INFOPOPUP");
-      this.$store.dispatch('showInfoPopup', {
-        isopen: true,
-        msg: 'accesstoken 不能为空',
-        state: false,
-        position: '55px'
-      })
-    },
-    handleLogin(){
-      let at = this.accessToken.trim();
-      if(at==""){
-        
-      }
-    }
-  },
-  components: {
-    infoPopup
+    ]),
   }
 }
 </script>
 
 <style lang="less">
-  .login{
-    background-color: #eff2f7;
-    .access-token{
-      margin-top: 30px;
-      .lock-icon{
-        bottom: -8px;
-        padding: 0 10px;
-        color: #7a7777;
-        &.ac{
-          color: #41b883;
-        }
-      }
-      .mu-text-field{
-        width: 200px;
-        .mu-text-field-focus-line{
-          background-color: #41b883;
-        }
-      }
+  .user-flex{
+    height: 4.375rem;
+    margin-top: 1rem;
+    padding: 0 12px;
+    background-color: #fff;
+    .user-photo{
+      height: 3.125rem;
+      width: 3.125rem;
     }
-    .mu-raised-button{
-      display: block;
-      width: 70%;
-      margin-top: 12px;
-      &:nth-child(2){
-        color: #fff;
-        background-color: #41b883;
-      }
-    }
-    .how-get{
-      width: 22rem;
-      margin: 30px auto 15px;
+    .user-info{
+      height: 2.875rem;
+      margin-left: 12px;
       font-size: 1rem;
-      font-weight: bold;
-      .material-icons{
-        position: relative;
-        top: 2px;
+      .user-score{
+        top: 0.2rem; 
+        padding: 1px 6px;
+        white-space:nowrap;
+        font-size: .85rem;
+        background-color: #eff2f7;
+        border-radius: 18px;
+        .material-icons{
+          line-height: 20px;
+          margin-right: 2px;
+        }   
       }
-    }
-    .tip{
-      padding: 0 40px;
-      line-height: 1.6;
-      font-size: .95rem;
     }
   }
-
+  .topic-list{
+    padding: 0;
+    margin: 1rem 0;
+    background-color: #fff;
+    .mu-item{
+      position: relative;
+      padding-left: 45px;
+      line-height: 45px;
+      border-bottom: 1px solid #e6eaf2;
+      .mu-item-content{
+        font-size: .85rem;
+      }
+    }
+    .topic-num{
+      position: absolute;
+      right: -1rem;
+      height: 21px;
+      min-width: 21px;
+      justify-content: center;
+      background-color: #e5e9f2;
+      border-radius: 50%;
+    }
+  }
+  .logout-button{
+    height: 45px;
+    background-color: #fff;
+  }
 </style>

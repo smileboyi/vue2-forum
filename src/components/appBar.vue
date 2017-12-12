@@ -11,7 +11,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
   .mu-appbar{
     background-color: rgba(2, 151, 86, 0.9);
     .mu-appbar-title{

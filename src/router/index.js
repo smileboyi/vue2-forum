@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 //引入路由要加载的page组件
-import message from '../pages/message/message.vue'
+import messageIndex from '../pages/message/index.vue'
 import topics from '../pages/topics/topics.vue'
-import user from '../pages/user/user.vue'
+import userIndex from '../pages/user/index.vue'
 
 
 Vue.use(Router)
@@ -18,12 +18,12 @@ const routes = [
   {
     name: 'message',
     path: '/message/:title',
-    component: message
+    component: messageIndex
   },
   {
     name: 'user',
     path: '/user/:title',
-    component: user
+    component: userIndex
   }
 ]
 
@@ -31,6 +31,6 @@ const routes = [
 const router = new Router({ routes })
 
 // 第一次打开时的页面
-router.push({name: 'topics', params: {title: '话题'}})
+router.push({name: 'message', params: {title: '未读消息'}})
 
 export default router

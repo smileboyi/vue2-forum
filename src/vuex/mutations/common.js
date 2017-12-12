@@ -14,8 +14,8 @@ const commonMutations = {
   [types.DEFINE_INFOPOPUP_STATE](state, action){
     state.infopopup.infostate = action.infostate;
   },
-  [types.DEFINE_INFOPOPUP_POSITION](state, action){
-    state.infopopup.position = action.position;
+  [types.DEFINE_INFOPOPUP_BOTTOM](state, action){
+    state.infopopup.bottom = action.bottom;
   }
 }
 
