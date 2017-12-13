@@ -8,7 +8,7 @@ import userIndex from '../pages/user/index.vue'
 
 Vue.use(Router)
 
-// 定义路由影射
+// 定义路由映射
 const routes = [
   {
     name: 'topics',
@@ -31,6 +31,6 @@ const routes = [
 const router = new Router({ routes })
 
 // 第一次打开时的页面
-router.push({name: 'message', params: {title: '未读消息'}})
+router.push({name: 'user', params: {title: '个人中心'}})
 
 export default router

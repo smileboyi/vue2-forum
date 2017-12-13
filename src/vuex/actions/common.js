@@ -3,8 +3,15 @@ import * as types from '../constants/types'
 
 const commomActions = {
 
-  // 显示的方法要由具体的其他action行为中调用
-  showInfoPopup({ commit, state, dispatch }, params){
+  // 怎么显示要由具体的其他action行为中调用
+
+  /**
+   * 
+   * @param {msg} [String]     文本信息
+   * @param {state} [Boolean]  执行状态
+   * @param {bottom} [String]  底部距离
+   */
+  showInfoPopup({ commit, state }, params){
     let isopen = params.isopen || false ,
       position = params.position || '';
 

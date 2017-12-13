@@ -1,43 +1,87 @@
 <template>
-  <div>
-    <mu-flexbox class="user-flex">
-      <div class="user-photo">
-        <img class="wh100" src="/static/avatar2.jpg" alt="user">
-      </div>
-      <div class="user-info pre fe">
-        <div class="user-name"><b>smileboyi</b></div>
-        <div class="user-id">ID: c6f42acd-2681-43f2-a4e8-0e66360649c0</div>
-        <div class="user-score pab nor flex">
-          <mu-icon value="stars" color="#fcc015" :size="18" />
-          563
+  <transition 
+    enter-active-class="animated fadeIn"
+    leave-active-class="animated fadeOut"
+    mode="out-in"
+  >
+    <div>
+      <mu-flexbox class="user-flex">
+        <div class="user-photo">
+          <img class="wh100" :src="login.data.avatar_url" alt="user">
         </div>
-      </div>
-    </mu-flexbox>
-    <mu-list class="topic-list">
-      <mu-list-item title="我收藏的话题" afterTextClass="topic-num" afterText="65">
-        <mu-icon value="star" :size="20" style="color: #fcc015" slot="left"/>
-        <mu-icon value="navigate_next" color="#D3DCE6" slot="right" />
-      </mu-list-item>
-      <mu-list-item title="我参与的话题" afterTextClass="topic-num" afterText="5">
-        <mu-icon value="chat" :size="20" style="color: #00b1fe" slot="left"/>
-        <mu-icon value="navigate_next" color="#D3DCE6" slot="right" />
-      </mu-list-item>
-      <mu-list-item title="我最近的话题" afterTextClass="topic-num" afterText="5">
-        <mu-icon value="bubble_chart" :size="20" style="color: #f86161" slot="left"/>
-        <mu-icon value="navigate_next" color="#D3DCE6" slot="right" />
-      </mu-list-item>
-    </mu-list>
-    <mu-flat-button label="退出登录" class="logout-button w100" />
-  </div>
+        <div class="user-info pre fe">
+          <div class="user-name"><b>{{login.data.loginname}}</b></div>
+          <div class="user-id ell">ID: {{login.data.id}}</div>
+          <div class="user-score pab nor flex">
+            <mu-icon value="stars" color="#fcc015" :size="18" />
+            {{login.userinfo.score}}
+          </div>
+        </div>
+      </mu-flexbox>
+      <mu-list class="topic-list">
+        <mu-list-item 
+          title="我收藏的话题" 
+          afterTextClass="topic-num" 
+          :afterText="COLLECTS_COUNT.toString()"
+          @click.native="openUserTopic('我收藏的话题')"
+        >
+          <mu-icon value="star" :size="20" style="color: #fcc015" slot="left"/>
+          <mu-icon value="navigate_next" color="#D3DCE6" slot="right" />
+        </mu-list-item>
+        <mu-list-item 
+          title="我参与的话题" 
+          afterTextClass="topic-num" 
+          :afterText="REPLIES_COUNT.toString()"
+          @click.native="openUserTopic('我参与的话题')"
+        >
+          <mu-icon value="chat" :size="20" style="color: #00b1fe" slot="left"/>
+          <mu-icon value="navigate_next" color="#D3DCE6" slot="right" />
+        </mu-list-item>
+        <mu-list-item 
+          title="我最近的话题" 
+          afterTextClass="topic-num" 
+          :afterText="RECENT_COUNT.toString()"
+          @click.native="openUserTopic('我最近的话题')"
+        >
+          <mu-icon value="bubble_chart" :size="20" style="color: #f86161" slot="left"/>
+          <mu-icon value="navigate_next" color="#D3DCE6" slot="right" />
+        </mu-list-item>
+      </mu-list>
+
+      <mu-flat-button label="退出登录" class="logout-button w100" @click="handleLogout" />
+
+      <topic />
+    </div>
+  </transition>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters  } from 'vuex'
+import topic from './topic'
+
+
 export default {
   computed: {
     ...mapState([
-        'common'
+      'common',
+      'login'
     ]),
+    ...mapGetters([
+      'COLLECTS_COUNT',
+      'REPLIES_COUNT',
+      'RECENT_COUNT'
+    ])
+  },
+  methods: {
+    handleLogout(){
+      this.$store.commit('USER_LOGOUT');
+    },
+    openUserTopic(title, type){
+
+    }
+  },
+  components: {
+    topic
   }
 }
 </script>
@@ -56,6 +100,9 @@ export default {
       height: 2.875rem;
       margin-left: 12px;
       font-size: 1rem;
+      .user-id{
+        max-width: 18rem;
+      }
       .user-score{
         top: 0.2rem; 
         padding: 1px 6px;

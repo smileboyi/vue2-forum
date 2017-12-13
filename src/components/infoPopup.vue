@@ -27,6 +27,7 @@
 		}
 		.info-text{
 			padding: 0 10px;
+			font-size: .85rem;
 		}
 	}
 </style>

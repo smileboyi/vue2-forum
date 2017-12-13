@@ -1,7 +1,10 @@
 <template>
   <div class="message">
 		<div class="mew-msgs">
-			<h4 class="tip pre">新消息(0)</h4>
+			<h4 class="tip pre">
+				新消息(0) 
+				<span class="set-read-state fr">全部已读</span>
+			</h4>
 			<div class="list">
 				<p class="no-msg tc">没有消息</p>
 				<div class="item">
@@ -64,6 +67,10 @@ export default {
 				width: 6px;
 				background-color: #d3dce6;
 			}
+			.set-read-state{
+				margin-right: 12px;
+				color: #41b883;
+			}
 		}
 		.list{
 			.no-msg{
@@ -80,6 +87,16 @@ export default {
 						color: #b1bdcb;
 					}
 				}
+			}
+		}
+		.mew-msgs{
+			.bar{
+				.time{
+					color:#b1bdcb;
+				}
+			}
+			.main{
+				color: #475669;
 			}
 		}
 	}

@@ -3,15 +3,12 @@ import loginMutations from '../mutations/login'
 import loginGetters from '../getters/login'
 
 
-//定义login状态配置
 const login = {
-  //定义login状态state
   state: {
-    loginState: false,
-    msg: '',
-    userinfo: {
-
-    }
+    isfetching: false,
+    loginstate: false,
+    data:{},
+    userinfo: {}
   },
   mutations: loginMutations,
   getters: loginGetters,

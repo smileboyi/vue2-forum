@@ -3,7 +3,7 @@
     enter-active-class="animated slideInUp"
     leave-active-class="animated slideOutDown"
   >
-    <div class="pfi not user-topic z50 w100">
+    <div class="pfi not user-topic z50 wh100">
       <mu-appbar :title="'我收藏的话题(5)'">
         <mu-icon-button icon="close" slot="left" />
       </mu-appbar>
@@ -41,6 +41,7 @@ export default {
 
 <style lang="less">
   .user-topic{
+    background-color: #fff;
     .mu-appbar{
       padding: 0;
       background-color: #41b883;
