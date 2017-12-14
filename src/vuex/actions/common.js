@@ -3,7 +3,7 @@ import * as types from '../constants/types'
 
 const commomActions = {
 
-  // 怎么显示要由具体的其他action行为中调用
+  // InfoPopup怎么显示要在具体的其他action行为中调用
 
   /**
    * 

@@ -6,7 +6,7 @@
 		<mu-content-block 
 			class="info-popup pfi nob z50" 
 			:class="{ 'error-info-content-class':!common.infopopup.infostate }"
-			:style="{ bottom: common.infopopup.bottom }"
+			:style="{ bottom: common.infopopup.bottom + 'px' }"
 		>
 			<p class="info-text">
 				{{ common.infopopup.infomsg }}

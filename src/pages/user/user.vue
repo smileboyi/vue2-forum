@@ -50,7 +50,7 @@
 
       <mu-flat-button label="退出登录" class="logout-button w100" @click="handleLogout" />
 
-      <topic />
+      <topic v-show="isTopicShow" />
     </div>
   </transition>
 </template>
@@ -61,6 +61,11 @@ import topic from './topic'
 
 
 export default {
+  data(){
+    return {
+      isTopicShow:false
+    }
+  },
   computed: {
     ...mapState([
       'common',
@@ -75,6 +80,10 @@ export default {
   methods: {
     handleLogout(){
       this.$store.commit('USER_LOGOUT');
+      this.$store.dispatch('showInfoPopup', {
+        msg: '已退出登录',
+        state: true
+      })
     },
     openUserTopic(title, type){
 

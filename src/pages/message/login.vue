@@ -2,15 +2,17 @@
   <div class="go-to-login tc">
     <img class="photo" src="/static/mountain.png" alt="login">
     <p class="text">登录后可查看未读消息</p>
-    <mu-flat-button label="登录" class="btn"/>
+    <mu-flat-button label="登录" class="btn" @click="goToLoginPage" />
   </div>
 </template>
 
 <script>
-
-
 export default {
-  
+  methods:{
+    goToLoginPage(){
+      this.$router.replace({ name: 'user' });
+    }
+  }
 }
 </script>
 

@@ -32,8 +32,6 @@
 </template>
 
 <script>
-
-
 export default {
   
 }

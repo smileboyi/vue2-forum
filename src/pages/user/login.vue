@@ -41,6 +41,7 @@
 <script>
 import { mapState } from 'vuex'
 
+
 export default {
   data(){
     return{
@@ -69,8 +70,7 @@ export default {
       let at = this.accessToken.trim();
       if(at==""){
         this.$store.dispatch('showInfoPopup', {
-          msg: 'accesstoken 不能为空',
-          bottom: '56px'
+          msg: 'accesstoken 不能为空'
         })
       }else{
         this.$store.dispatch('fetchUserLogin', {

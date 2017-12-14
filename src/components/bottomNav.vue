@@ -3,7 +3,9 @@
     <mu-bottom-nav :value="bottomNav" shift @change="handleChange">
       <mu-bottom-nav-item value="topics" title="话题" to="/topics/话题" icon="whatshot"/>
       <mu-bottom-nav-item value="message" title="未读消息" to="/message/未读消息" icon="drafts">
-        <span class="message-num db pab tc">{{num}}</span>
+        <span class="message-num db pab tc" v-if="HAS_NOT_READ_MESSAGES_COUNT">
+          {{ HAS_NOT_READ_MESSAGES_COUNT }}
+        </span>
       </mu-bottom-nav-item>
       <mu-bottom-nav-item value="user" title="个人中心 " to="/user/个人中心" icon="face"/>
     </mu-bottom-nav>
@@ -11,18 +13,26 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex'
 
 
 export default {
   data () {
     return {
-      bottomNav: 'topics',
-      num:5
+      bottomNav: 'topics'
     }
+  },
+  computed: {
+    ...mapState([
+      'login'
+    ]),
+    ...mapGetters([
+      'HAS_NOT_READ_MESSAGES_COUNT'
+    ])
   },
   methods: {
     handleChange (val) {
-      this.bottomNav = val
+      this.bottomNav = val;
     }
   }
 }

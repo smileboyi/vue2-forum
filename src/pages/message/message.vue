@@ -1,15 +1,16 @@
 <template>
   <div class="message">
+		<mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="refresh"/>
 		<div class="mew-msgs">
 			<h4 class="tip pre">
-				新消息(0) 
+				新消息({{HAS_NOT_READ_MESSAGES_COUNT}}) 
 				<span class="set-read-state fr">全部已读</span>
 			</h4>
 			<div class="list">
-				<p class="no-msg tc">没有消息</p>
-				<div class="item">
+				<p class="no-msg tc" v-if="!HAS_NOT_READ_MESSAGES_COUNT">没有消息</p>
+				<div class="item" v-for="(item,i) in message.hasnot_read_messages" :key="i">
 					<div class="bar flex">
-							<span class="name">来自<b>china</b></span>
+							<span class="name">来自<b></b></span>
 							<span class="time">13天前</span>
 					</div>
 					<div class="main">
@@ -21,8 +22,8 @@
 		<div class="past-msgs">
 			<h4 class="tip pre">已读消息</h4>
 			<div class="list">
-				<p class="no-msg tc">没有消息</p>
-				<div class="item">
+				<p class="no-msg tc" v-if="!HAS_READ_MESSAGES_COUNT">没有消息</p>
+				<div class="item" v-for="(item,i) in message.has_read_messages" :key="i">
 					<div class="bar flex">
 							<span class="name">来自<b>china</b></span>
 							<span class="time">13天前</span>
@@ -46,8 +47,44 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex'
+
+
 export default {
-  
+  data () {
+    return {
+      list: [],
+      num: 10,
+      refreshing: false,
+      trigger: null
+    }
+	},
+	computed: {
+    ...mapState([
+			'message'
+		]),
+		...mapGetters([
+			'HAS_NOT_READ_MESSAGES_COUNT',
+			'HAS_READ_MESSAGES_COUNT'
+    ])
+  },
+  mounted() {
+    this.trigger = this.$el
+  },
+  methods: {
+    refresh() {
+      this.refreshing = true;
+      setTimeout(() => {
+        const list = []
+        for (let i = this.num; i < this.num + 10; i++) {
+          list.push('item' + (i + 1))
+        }
+        this.list = list
+        this.num += 10
+        this.refreshing = false
+      }, 2000)
+    }
+  }
 }
 </script>
 

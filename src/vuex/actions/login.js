@@ -36,14 +36,20 @@ const loginActions = {
 
       // 获取个人数据（包含话题数据）
       dispatch('fetchUserInfo', {
-        loginname: res.data.loginname,
+        loginname: res.data.loginname
+      })
+
+      // 获取消息
+      dispatch('fetchMessage', {
+        accesstoken: params.accesstoken
       })
   
     }).catch((err) => {
+      console.log(err);
       dispatch('showInfoPopup', {
-        msg: '登录失败，请检查网络或accesstoken是否正确',
-        bottom: '56px'
+        msg: '登录失败，请检查网络或accesstoken是否正确'
       })
+      commit(types.FETCH_LOGIN_ERR);
     })
   },
 

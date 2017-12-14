@@ -14,27 +14,36 @@ export const USER_LOGOUT = 'USER_LOGOUT'
 
 
 //topics
-export const CLEAR_STATE_DATA = 'CLEAR_STATE_DATA';
+
 
 
 //message
-export const UNREAD_MESSAGE_NUM = 'UNREAD_MESSAGE_NUM';
+export const FETCH_MESSAGE_REQ = 'FETCH_MESSAGE_REQ'
+export const FETCH_MESSAGE_SUC = 'FETCH_MESSAGE_SUC'
+export const FETCH_MESSAGE_ERR = 'FETCH_MESSAGE_RER'
+export const FETCH_MARK_ALL_REQ = 'FETCH_MARK_ALL_REQ'
+export const FETCH_MARK_ALL_SUC = 'FETCH_MARK_ALL_SUC'
+export const FETCH_MARK_ALL_ERR = 'FETCH_MARK_ALL_ERR'
+export const CLEAR_MESSAGE = 'CLEAR_MESSAGE'
 
-
-
-/**
- * common
- */
-//login
-export const COLLECTS_COUNT = 'COLLECTS_COUNT';
-export const REPLIES_COUNT = 'REPLIES_COUNT';
-export const RECENT_COUNT = 'RECENT_COUNT';
-
+/************************common*****************************/
 //infopopup
 export const SHOW_INFOPOPUP = "SHOW_INFOPOPUP"
 export const HIDE_INFOPOPUP = "HIDE_INFOPOPUP"
- // 打开infopopup后的type
 export const DEFINE_INFOPOPUP_MSG = "DEFINE_INFOPOPUP_MSG"
 export const DEFINE_INFOPOPUP_STATE = "DEFINE_INFOPOPUP_STATE"
 export const DEFINE_INFOPOPUP_BOTTOM = "DEFINE_INFOPOPUP_BOTTOM"
+/************************common*****************************/
 
+
+/************************getter*****************************/
+//login
+export const COLLECTS_COUNT = 'COLLECTS_COUNT'
+export const REPLIES_COUNT = 'REPLIES_COUNT'
+export const RECENT_COUNT = 'RECENT_COUNT'
+// message
+export const HAS_NOT_READ_MESSAGES_COUNT = 'HAS_NOT_READ_MESSAGES_COUNT'
+export const HAS_READ_MESSAGES_COUNT = 'HAS_READ_MESSAGES_COUNT'
+
+
+/************************getter*****************************/

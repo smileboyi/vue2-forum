@@ -2,7 +2,7 @@ import * as types from '../constants/types'
 
 
 const loginMutations = {
-  [types.FETCH_LOGIN_REQ](state, action){
+  [types.FETCH_LOGIN_REQ](state){
     state.isfetching = true;
   },
   [types.FETCH_LOGIN_SUC](state, action){
@@ -10,10 +10,10 @@ const loginMutations = {
     state.loginstate = true;
     state.data = action.data;
   },
-  [types.FETCH_LOGIN_ERR](state, action){
+  [types.FETCH_LOGIN_ERR](state){
+    // 错误没有msg返回，只返回了状态码403
     state.isfetching = false;
     state.loginstate = false;
-    state.msg = action.error;
   },
   [types.FETCH_USERINFO](state, action){
     state.userinfo = action.data;

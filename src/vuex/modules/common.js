@@ -7,7 +7,7 @@ const common = {
     infopopup: {
       isopen: false,
       infostate: true,   //suc用true,err用false
-      bottomclass:"",
+      bottom:"56",
       infomsg: ""
     }
   },
