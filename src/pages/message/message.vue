@@ -10,8 +10,8 @@
 				<p class="no-msg tc" v-if="!HAS_NOT_READ_MESSAGES_COUNT">没有消息</p>
 				<div class="item" v-for="(item,i) in message.hasnot_read_messages" :key="i">
 					<div class="bar flex">
-							<span class="name">来自<b></b></span>
-							<span class="time">13天前</span>
+						<span class="name">来自<b></b></span>
+						<span class="time">13天前</span>
 					</div>
 					<div class="main">
 						回复了你的话题&nbsp&nbsp一枚UI射鸡师的前端之路。重构vue.js中文社区手机端，技术栈：vue全家桶，muse-ui
@@ -25,17 +25,8 @@
 				<p class="no-msg tc" v-if="!HAS_READ_MESSAGES_COUNT">没有消息</p>
 				<div class="item" v-for="(item,i) in message.has_read_messages" :key="i">
 					<div class="bar flex">
-							<span class="name">来自<b>china</b></span>
-							<span class="time">13天前</span>
-					</div>
-					<div class="main">
-						回复了你的话题&nbsp&nbsp一枚UI射鸡师的前端之路。重构vue.js中文社区手机端，技术栈：vue全家桶，muse-ui
-					</div>
-				</div>
-				<div class="item">
-					<div class="bar flex">
-							<span class="name">来自<b>china</b></span>
-							<span class="time">13天前</span>
+						<span class="name">来自<b>china</b></span>
+						<span class="time">13天前</span>
 					</div>
 					<div class="main">
 						回复了你的话题&nbsp&nbsp一枚UI射鸡师的前端之路。重构vue.js中文社区手机端，技术栈：vue全家桶，muse-ui

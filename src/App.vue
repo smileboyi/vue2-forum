@@ -2,7 +2,7 @@
   <div id="app" class="h100 grail">
     <appBar />
     <!-- 信息发表组件 -->
-    <releasePage class="dn" />
+    <releasePage class="" />
     <!-- 话题详情页组件 -->
     <!-- <topicPage class="dn" /> -->
     <!-- 底部导航切换的页面组件 -->
