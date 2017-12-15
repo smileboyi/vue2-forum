@@ -13,7 +13,8 @@ import MuseUI from 'muse-ui'
 import 'muse-ui/dist/muse-ui.css'
 Vue.use(MuseUI)
 
-// base.css、animate.css
+// common.css、base.css、animate.css
+import './assets/css/common.css' 
 import './assets/css/base.css' 
 import 'animate.css'      
 
