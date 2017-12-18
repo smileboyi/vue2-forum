@@ -33,6 +33,10 @@ export const HIDE_INFOPOPUP = "HIDE_INFOPOPUP"
 export const DEFINE_INFOPOPUP_MSG = "DEFINE_INFOPOPUP_MSG"
 export const DEFINE_INFOPOPUP_STATE = "DEFINE_INFOPOPUP_STATE"
 export const DEFINE_INFOPOPUP_BOTTOM = "DEFINE_INFOPOPUP_BOTTOM"
+
+//releasepage
+export const SHOW_RELEASEPAGE = "SHOW_RELEASEPAGE"
+export const HIDE_RELEASEPAGE = "HIDE_RELEASEPAGE"
 /************************common*****************************/
 
 

@@ -70,7 +70,8 @@ export default {
       let at = this.accessToken.trim();
       if(at==""){
         this.$store.dispatch('showInfoPopup', {
-          msg: 'accesstoken 不能为空'
+          msg: 'accesstoken 不能为空',
+          bottom: 56
         })
       }else{
         this.$store.dispatch('fetchUserLogin', {

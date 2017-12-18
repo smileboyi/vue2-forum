@@ -16,7 +16,14 @@ const commonMutations = {
   },
   [types.DEFINE_INFOPOPUP_BOTTOM](state, action){
     state.infopopup.bottom = action.bottom;
-  }
+  },
+  // infopopup
+  [types.SHOW_RELEASEPAGE](state){
+    state.releasepage.isopen = true;
+  },
+  [types.HIDE_RELEASEPAGE](state){
+    state.releasepage.isopen = false;
+  },
 }
 
 export default commonMutations;

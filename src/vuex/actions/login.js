@@ -23,6 +23,7 @@ const loginActions = {
       //登录成功提示
       dispatch('showInfoPopup', {
         msg: '登录成功',
+        bottom: 56,    //虽然加了默认值，但是不写的话，多次弹出后没有bottom效果
         state: true
       })
 
@@ -65,6 +66,7 @@ const loginActions = {
       commit(types.FETCH_USERINFO, {
           data: res.data.data
       })
+      console.log(res.data.data)
     })
   }
 }

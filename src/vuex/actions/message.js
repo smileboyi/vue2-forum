@@ -20,7 +20,6 @@ const messageActions = {
         accesstoken: params.accesstoken
       }
     }).then((res) => {
-      console.log(res.data.data.has_read_messages[1].reply);
       commit(types.FETCH_MESSAGE_SUC, { 
         data: res.data.data
       });
@@ -43,14 +42,20 @@ const messageActions = {
       accesstoken: params.accesstoken
     }).then((res) => {
       commit(types.FETCH_MARK_ALL_SUC);
+      // 刷新数据
+      dispatch('fetchMessage', {
+          accesstoken: params.accesstoken
+      });
       dispatch('showInfoPopup', {
         msg: '全部标记成功',
-        state: true
+        state: true,
+        bottom: 56
       })
     }).catch((err) => {
       commit(types.FETCH_MARK_ALL_ERR);
       dispatch('showInfoPopup', {
-        msg: '请求错误，请检查网络'
+        msg: '请求错误，请检查网络',
+        bottom: 56
       })
     })
   }

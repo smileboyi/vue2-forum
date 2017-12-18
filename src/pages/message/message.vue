@@ -1,20 +1,21 @@
 <template>
-  <div class="message">
+  <div class="message wh100 ova">
 		<mu-refresh-control :refreshing="refreshing" :trigger="trigger" @refresh="refresh"/>
+		<!-- 有2个list貌似不好做分页加载 -->
 		<div class="mew-msgs">
 			<h4 class="tip pre">
 				新消息({{HAS_NOT_READ_MESSAGES_COUNT}}) 
-				<span class="set-read-state fr">全部已读</span>
+				<span class="set-read-state fr" v-if="HAS_NOT_READ_MESSAGES_COUNT" @click="markAllRead">全部已读</span>
 			</h4>
 			<div class="list">
 				<p class="no-msg tc" v-if="!HAS_NOT_READ_MESSAGES_COUNT">没有消息</p>
-				<div class="item" v-for="(item,i) in message.hasnot_read_messages" :key="i">
+				<div class="item" v-for="(item,i) in message.data.hasnot_read_messages" :key="i">
 					<div class="bar flex">
-						<span class="name">来自<b></b></span>
-						<span class="time">13天前</span>
+						<span class="name">来自<b>{{item.author.loginname}}</b></span>
+						<span class="time">{{item.reply.create_at | filterTime}}</span>
 					</div>
 					<div class="main">
-						回复了你的话题&nbsp&nbsp一枚UI射鸡师的前端之路。重构vue.js中文社区手机端，技术栈：vue全家桶，muse-ui
+						回复了你的话题&nbsp&nbsp{{item.topic.title}}
 					</div>
 				</div>
 			</div>
@@ -23,13 +24,13 @@
 			<h4 class="tip pre">已读消息</h4>
 			<div class="list">
 				<p class="no-msg tc" v-if="!HAS_READ_MESSAGES_COUNT">没有消息</p>
-				<div class="item" v-for="(item,i) in message.has_read_messages" :key="i">
+				<div class="item" v-for="(item,i) in message.data.has_read_messages" :key="i">
 					<div class="bar flex">
-						<span class="name">来自<b>china</b></span>
-						<span class="time">13天前</span>
+						<span class="name">来自<b>{{item.author.loginname}}</b></span>
+						<span class="time">{{item.reply.create_at | filterTime}}</span>
 					</div>
 					<div class="main">
-						回复了你的话题&nbsp&nbsp一枚UI射鸡师的前端之路。重构vue.js中文社区手机端，技术栈：vue全家桶，muse-ui
+						回复了你的话题&nbsp&nbsp{{item.topic.title}}
 					</div>
 				</div>
 			</div>
@@ -39,15 +40,17 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
+import { getCookie } from '../../assets/js/cookies.js'
+import { filterTime } from '../../assets/js/filters.js'
 
 
 export default {
   data () {
+		let accesstoken = getCookie('accesstoken');
     return {
-      list: [],
-      num: 10,
       refreshing: false,
-      trigger: null
+			trigger: null,
+			accesstoken
     }
 	},
 	computed: {
@@ -60,21 +63,31 @@ export default {
     ])
   },
   mounted() {
-    this.trigger = this.$el
+		// 使用mounted并不能保证钩子函数中的this.$el在document中。为此还应该引入Vue.nextTick/vm.$nextTick
+		this.$nextTick(function () {
+			this.trigger = this.$el;
+		})
+	},
+	filters: {
+    filterTime
   },
   methods: {
     refresh() {
       this.refreshing = true;
-      setTimeout(() => {
-        const list = []
-        for (let i = this.num; i < this.num + 10; i++) {
-          list.push('item' + (i + 1))
-        }
-        this.list = list
-        this.num += 10
-        this.refreshing = false
-      }, 2000)
-    }
+			this.$store.dispatch('fetchMessage', {
+				accesstoken: this.accesstoken
+			}).then((res) => {
+				// finally不是原生的
+				this.refreshing = false;
+			}).catch((err) => {
+				this.refreshing = false;
+			})
+		},
+		markAllRead(){
+			this.$store.dispatch('fetchMarkAllMsg', {
+				accesstoken: this.accesstoken
+			})
+		}
   }
 }
 </script>

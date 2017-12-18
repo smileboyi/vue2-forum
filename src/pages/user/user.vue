@@ -23,7 +23,7 @@
           title="我收藏的话题" 
           afterTextClass="topic-num" 
           :afterText="COLLECTS_COUNT.toString()"
-          @click.native="openUserTopic('我收藏的话题')"
+          @click.native="openUserTopic('我收藏的话题', 'collect_topics')"
         >
           <mu-icon value="star" :size="20" style="color: #fcc015" slot="left"/>
           <mu-icon value="navigate_next" color="#D3DCE6" slot="right" />
@@ -32,7 +32,7 @@
           title="我参与的话题" 
           afterTextClass="topic-num" 
           :afterText="REPLIES_COUNT.toString()"
-          @click.native="openUserTopic('我参与的话题')"
+          @click.native="openUserTopic('我参与的话题', 'recent_replies')"
         >
           <mu-icon value="chat" :size="20" style="color: #00b1fe" slot="left"/>
           <mu-icon value="navigate_next" color="#D3DCE6" slot="right" />
@@ -41,29 +41,42 @@
           title="我最近的话题" 
           afterTextClass="topic-num" 
           :afterText="RECENT_COUNT.toString()"
-          @click.native="openUserTopic('我最近的话题')"
+          @click.native="openUserTopic('我最近的话题', 'recent_topics')"
         >
           <mu-icon value="bubble_chart" :size="20" style="color: #f86161" slot="left"/>
           <mu-icon value="navigate_next" color="#D3DCE6" slot="right" />
         </mu-list-item>
       </mu-list>
 
-      <mu-flat-button label="退出登录" class="logout-button w100" @click="handleLogout" />
-
-      <topic v-show="isTopicShow" />
+      <mu-flat-button 
+        label="退出登录" 
+        class="logout-button w100" 
+        @click="handleLogout" 
+      />
+      <!-- 话题列表页 -->
+      <topic 
+        v-show="isTopicShow" 
+        :type="type"
+        :title="title" 
+        :count="count" 
+        @closeChild="closeTopic" 
+      />
     </div>
   </transition>
 </template>
 
 <script>
-import { mapState, mapGetters  } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import topic from './topic'
 
 
 export default {
   data(){
     return {
-      isTopicShow:false
+      isTopicShow:false,
+      title: "",
+      count: 0,
+      type: ""
     }
   },
   computed: {
@@ -86,7 +99,19 @@ export default {
       })
     },
     openUserTopic(title, type){
-
+      if(type==='collect_topics'){
+        this.count = this.COLLECTS_COUNT;
+      }else if(type==='recent_replies'){
+        this.count = this.REPLIES_COUNT;
+      }else{
+        this.count = this.RECENT_COUNT;
+      }
+      this.type = type;
+      this.title = title;
+      this.isTopicShow = true;
+    },
+    closeTopic(){
+      this.isTopicShow = false;
     }
   },
   components: {

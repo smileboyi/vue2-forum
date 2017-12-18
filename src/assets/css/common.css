@@ -7,3 +7,8 @@
   .mu-menu-item-wrapper.active{
     color: #41b883;
   }
+
+  .animated {
+    -webkit-animation-duration: .5s !important;
+    animation-duration: .5s !important;
+  }

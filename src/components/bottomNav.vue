@@ -7,7 +7,7 @@
           {{ HAS_NOT_READ_MESSAGES_COUNT }}
         </span>
       </mu-bottom-nav-item>
-      <mu-bottom-nav-item value="user" title="个人中心 " to="/user/个人中心" icon="face"/>
+      <mu-bottom-nav-item value="user" title="我的" to="/user/我的" icon="face"/>
     </mu-bottom-nav>
   </mu-paper>
 </template>

@@ -35,10 +35,10 @@
 import { mapState } from 'vuex'
 
 export default {
-		computed: {
-        ...mapState([
-            'common'
-        ]),
-    }
+	computed: {
+		...mapState([
+				'common'
+		]),
+	}
 }
 </script>

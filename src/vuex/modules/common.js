@@ -9,6 +9,10 @@ const common = {
       infostate: true,   //suc用true,err用false
       bottom:"56",
       infomsg: ""
+    },
+    releasepage: {
+      // 只有在登录的情况才能设置为true
+      isopen: false
     }
   },
   mutations: commonMutations,

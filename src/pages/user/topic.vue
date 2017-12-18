@@ -1,29 +1,21 @@
 <template>
   <transition 
-    enter-active-class="animated slideInUp"
-    leave-active-class="animated slideOutDown"
+    enter-active-class="animated slideInUp trans"
+    leave-active-class="animated slideOutDown trans"
   >
-    <div class="pfi not user-topic z50 wh100">
-      <mu-appbar :title="'我收藏的话题(5)'">
-        <mu-icon-button icon="close" slot="left" />
+    <div class="pfi not user-topic z50 wh100 grail">
+      <mu-appbar :title="title+'('+ count +')'">
+        <mu-icon-button icon="close" slot="left" @click.native="closeSelf" />
       </mu-appbar>
-      <div>
-        <div class="user-topic-item flex">
+      <div class="ova fe">
+        <!-- 这里是一次性加载完，没有做分页加载 -->
+        <div class="user-topic-item flex" v-for="item in login.userinfo[this.type]">
           <div class="user-photo">
-            <img class="wh100" src="/static/avatar2.jpg" alt="user">
+            <img class="wh100" :src="item.author.avatar_url" alt="user">
           </div>
           <div class="fe">
-            <p class="title">新人第一次发帖，问题比较多比较杂！</p>
-            <p class="bar">dsggeh 4天前</p>
-          </div>
-        </div>
-        <div class="user-topic-item flex">
-          <div class="user-photo">
-            <img class="wh100" src="/static/avatar2.jpg" alt="user">
-          </div>
-          <div class="fe">
-            <p class="title">新人第一次发帖，问题比较多比较杂！新人第一次发帖，问题比较多比较杂！</p>
-            <p class="bar">dsggeh 4天前</p>
+            <p class="title">{{item.title}}</p>
+            <p class="bar">{{item.author.loginname}} {{item.last_reply_at | filterTime}}</p>
           </div>
         </div>
       </div>
@@ -32,8 +24,30 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import { filterTime } from '../../assets/js/filters.js'
+
+
 export default {
-  
+  props: {
+    title: "",
+    count: 0,
+    type: ""
+  },
+  computed: {
+    ...mapState([
+      'login'
+    ]),
+  },
+  filters: {
+    // 想要在template里面（不是在script里面）使用外部函数，请注册
+    filterTime
+  },
+  methods: {
+    closeSelf(){
+      this.$emit('closeChild');
+    }
+  }
 }
 </script>
 
@@ -42,7 +56,6 @@ export default {
     background-color: #fff;
     .mu-appbar{
       padding: 0;
-      background-color: #41b883;
       .mu-appbar-title{
         padding: 0;
       }
