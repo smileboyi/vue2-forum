@@ -40,7 +40,6 @@ export default {
     ]),
   },
   filters: {
-    // 想要在template里面（不是在script里面）使用外部函数，请注册
     filterTime
   },
   methods: {

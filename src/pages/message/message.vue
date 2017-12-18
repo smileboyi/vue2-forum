@@ -15,7 +15,7 @@
 						<span class="time">{{item.reply.create_at | filterTime}}</span>
 					</div>
 					<div class="main">
-						回复了你的话题&nbsp&nbsp{{item.topic.title}}
+						回复了你的话题&nbsp;&nbsp;{{item.topic.title}}
 					</div>
 				</div>
 			</div>
@@ -30,7 +30,7 @@
 						<span class="time">{{item.reply.create_at | filterTime}}</span>
 					</div>
 					<div class="main">
-						回复了你的话题&nbsp&nbsp{{item.topic.title}}
+						回复了你的话题&nbsp;&nbsp;{{item.topic.title}}
 					</div>
 				</div>
 			</div>
