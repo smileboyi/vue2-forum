@@ -10,7 +10,7 @@
     <!-- 提示弹窗 -->
     <infoPopup v-show="common.infopopup.isopen" />
 
-    <detail />
+    <!-- <detail /> -->
     <bottomNav />
   </div>
 </template>

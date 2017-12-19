@@ -12,9 +12,18 @@ export const FETCH_LOGIN_ERR = 'FETCH_LOGIN_ERR'
 export const FETCH_USERINFO = 'FETCH_USERINFO'
 export const USER_LOGOUT = 'USER_LOGOUT'
 
+//topics list
+export const FETCH_TOPIC_REQ = 'FETCH_TOPIC_REQ'
+export const FETCH_TOPIC_SUC = 'FETCH_TOPIC_SUC'
+export const FETCH_TOPIC_ERR = 'FETCH_TOPIC_ERR'
+export const CLEAR_TOPIC_TAB_DATA = 'CLEAR_TOPIC_TAB_DATA'
 
-//topics
-
+//topics detail
+export const FETCH_DETAIL_REQ = 'FETCH_DETAIL_REQ'
+export const FETCH_DETAIL_SUC = 'FETCH_DETAIL_SUC'
+export const FETCH_DETAIL_ERR = 'FETCH_DETAIL_ERR'
+export const COLLECT_TOPIC = 'COLLECT_TOPIC'
+export const CANCEL_TOPIC = 'CANCEL_TOPIC'
 
 
 //message

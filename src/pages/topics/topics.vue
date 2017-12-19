@@ -1,73 +1,106 @@
 <template>
-  <div class="topics">
+  <div class="topics ovh">
     <mu-tabs 
       :value="activeTab" 
       lineClass="tabs-line"
       @change="handleTabChange"
     >
-      <mu-tab value="tab1" title="全部"/>
-      <mu-tab value="tab2" title="精华"/>
-      <mu-tab value="tab3" title="weex"/>
-      <mu-tab value="tab4" title="分享"/>
-      <mu-tab value="tab5" title="问答"/>
-      <mu-tab value="tab6" title="招聘"/>
+      <mu-tab value="all" title="全部"/>
+      <mu-tab value="good" title="精华"/>
+      <mu-tab value="weex" title="weex"/>
+      <mu-tab value="share" title="分享"/>
+      <mu-tab value="ask" title="问答"/>
+      <mu-tab value="job" title="招聘"/>
     </mu-tabs>
-    <div v-show="activeTab === 'tab1'">
-      <h2>Tab One</h2>
-      <p>
-        这是第一个 tab
-      </p>
+    <div class="ova" v-show="activeTab === 'all'">
+      <div  v-for="(item,i) in topic.listdata.all" :key="i" >
+        {{item}}
+        <!-- <topicItem /> -->
+      </div>
+      <!-- <topicItem v-for="(item,i) in topic.listdata.all" :key="i" :data="item"> -->
     </div>
-    <div v-show="activeTab === 'tab2'">
-      <h2>Tab Two</h2>
-      <p>
-        这是第二个 tab
-      </p>
+    <div v-show="activeTab === 'good'">
+      <topicItem />
     </div>
-    <div v-show="activeTab === 'tab3'">
-      <h2>Tab Three</h2>
-      <p>
-        这是第三个 tab
-      </p>
+    <div v-show="activeTab === 'weex'">
+      <topicItem />
     </div>
-    <div v-show="activeTab === 'tab4'">
-      <h2>Tab Three</h2>
-      <p>
-        这是第三个 tab
-      </p>
+    <div v-show="activeTab === 'share'">
+      <topicItem />
     </div>
-    <div v-show="activeTab === 'tab5'">
-      <h2>Tab Three</h2>
-      <p>
-        这是第三个 tab
-      </p>
+    <div v-show="activeTab === 'ask'">
+      <topicItem />
     </div>
-    <div v-show="activeTab === 'tab6'">
-      <h2>Tab Three</h2>
-      <p>
-        这是第三个 tab
-      </p>
+    <div v-show="activeTab === 'job'">
+      <topicItem />
     </div>
+    <mu-infinite-scroll :scroller="scroller" :loading="loading" @load="loadMore"/>
   </div>
 </template>
 
 <script>
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
+import topicItem from '../../components/topicItem'
+
+
 export default {
-  data () {
+  data(){
     return {
-      activeTab: 'tab1'
+      activeTab: 'all',
+      loading: false,
+      scroller: null,
+      page:{
+        all: 1,
+        good: 1,
+        weex: 1,
+        share: 1,
+        ask: 1,
+        job: 1
+      }
     }
+  },
+  computed: {
+    ...mapState([
+      'topic'
+    ])
+  },
+  created(){
+    // 初始化第一组数据
+    if (this.topic.listdata[this.activeTab].length === 0) {
+      this.$store.dispatch("fetchTopics",{
+        tab: this.activeTab,
+        page: this.page[this.activeTab],
+        limit: 5
+      })
+    }
+  },
+  mounted(){
+    this.$nextTick(function () {
+      this.scroller = this.$el;
+      this.trigger = this.$el;
+		})
   },
   methods: {
     handleTabChange (val) {
-      this.activeTab = val
-    }
+      this.activeTab = val;
+    },
+    loadMore(){
+      this.$store.dispatch("fetchTopics",{
+        tab: this.activeTab,
+        page: this.page[this.activeTab],
+        limit: 5
+      })
+    }    
+  },
+  components: {
+    topicItem
   }
 }
 </script>
 
 <style lang="less">
   .topics{
+    background-color: #eff2f7;
     .mu-tabs{
       background-color: #fff;
       .mu-tab-link{
@@ -75,7 +108,7 @@ export default {
       }
     }
     .tabs-line{
-      background: #41b883;
+      background-color: #41b883;
     }
   }
 

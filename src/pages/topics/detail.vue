@@ -11,14 +11,14 @@
     </div>
     <mu-appbar class="comment-bar pab nob" title="说点什么吧">
       <mu-icon-button icon="arrow_back" iconClass="icon" slot="left"/>
-      <div class="edit-btn">说点什么吧</div>
+      <div class="edit-btn" @click="openComment">说点什么吧</div>
       <div class="pre" slot="right">
-        <mu-icon-button icon="chat" iconClass="icon" />
+        <mu-icon-button icon="chat" iconClass="icon" @click.native="openComment" />
         <div class="reply-count pab tc">32</div>
       </div>
       <mu-icon-button icon="star_border" iconClass="icon" slot="right" @click="toggleCollect" />
     </mu-appbar>
-		<mu-bottom-sheet sheetClass="wh100 comment grail" :open="bottomSheet" @close="closeBottomSheet">
+		<mu-bottom-sheet sheetClass="wh100 comment grail" :open="bottomSheet">
 			<div class="number">32条评论</div>
 			<div class="list ova fe">
 				<div class="item flex">
@@ -37,7 +37,7 @@
 				</div>
 			</div>
 			<mu-appbar class="comment-bar" title="说点什么吧">
-				<mu-icon-button icon="arrow_back" iconClass="icon" slot="left"/>
+				<mu-icon-button icon="arrow_back" iconClass="icon" slot="left" @click.native="closeComment" />
 				<div class="edit-btn">说点什么吧</div>
 			</mu-appbar>
 		</mu-bottom-sheet>
@@ -50,19 +50,19 @@
 export default {
 	data() {
 		return {
-			bottomSheet: true
+			bottomSheet: false
 		}
 	},
 	methods: {
+		openComment(){
+			this.bottomSheet = true;
+		},
+		closeComment(){
+			this.bottomSheet = false;
+		},
 		toggleCollect(){
 
-		},
-    closeBottomSheet () {
-      this.bottomSheet = false
-    },
-    openBottomSheet () {
-      this.bottomSheet = true
-    }
+		}
 	}
 }
 </script>

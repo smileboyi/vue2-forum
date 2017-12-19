@@ -66,7 +66,6 @@ const loginActions = {
       commit(types.FETCH_USERINFO, {
           data: res.data.data
       })
-      console.log(res.data.data)
     })
   }
 }

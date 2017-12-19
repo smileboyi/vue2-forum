@@ -31,6 +31,6 @@ const routes = [
 const router = new Router({ routes })
 
 // 第一次打开时的页面
-router.push({name: 'user', params: {title: '个人中心'}})
+router.push({name: 'topics', params: {title: '话题'}})
 
 export default router

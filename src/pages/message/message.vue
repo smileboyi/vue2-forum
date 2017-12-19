@@ -94,6 +94,7 @@ export default {
 
 <style lang="less">
 	.message{
+		-webkit-overflow-scrolling: touch;
 		.tip{
 			line-height: 2.125rem;
 			font-size: .85rem;
