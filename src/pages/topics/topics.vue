@@ -13,8 +13,18 @@
         <mu-tab value="ask" title="问答"/>
         <mu-tab value="job" title="招聘"/>
       </mu-tabs>
-      <mu-refresh-control :refreshing="refreshing" :trigger="scroller" @refresh="refreshTabTopic"/>
-      <mu-circular-progress class="pfi centre1" v-if="isfetching" color="#41b883" :size="40"/>
+      <mu-refresh-control 
+        @refresh="refreshTabTopic"      
+        :refreshing="refreshing" 
+        color="#41b883"
+        :trigger="el" 
+      />
+      <mu-circular-progress
+      class="pfi centre1" 
+      v-if="isfetching"
+      color="#41b883" 
+      :size="40"
+      />
       <div 
         v-for="(tabItem,i) in ['all','good','weex','share','ask','job']" 
         v-show="activeTab === tabItem" 
@@ -45,6 +55,7 @@ import noMoreData from '../../components/noMoreData'
 export default {
   data(){
     return {
+      el: null,
       isfetching: false,
       refreshing: false,
       activeTab: 'all',
@@ -61,6 +72,7 @@ export default {
   mounted(){
     this.$nextTick(function () {
       this.scrollerArr = this.$refs;
+      this.el = this.$el;
       // 初始化第一个tab数据
       if(!this.topic.listdata.all.length){
         this.handleTabChange('all');
@@ -68,7 +80,17 @@ export default {
 		})
   },
   methods: {
+    fetchTopicsData(){
+      console.log("446788");
+      return this.$store.dispatch("fetchTopics",{
+        tab: this.activeTab,
+        page: this.topic.datapage[this.activeTab],
+        limit: 8
+      })
+    },
+    //下拉刷新时会执行handleTabChange，这时需要检测
     handleTabChange(val) {
+      console.log(1);
       this.activeTab = val;
       this.scroller = this.scrollerArr[val][0];
       // tab数据第一次初始化自动加载，之后上拉加载
@@ -84,7 +106,7 @@ export default {
     loadMore(){
       //如果已经返回完数据，将不再请求
       if(!this.topic.datapage[this.activeTab]) return;
-
+      console.log(2);
       this.loading = true;
       this.fetchTopicsData().then((res) => {
         this.loading = false;
@@ -92,17 +114,7 @@ export default {
         this.loading = false;
       })
     },
-    fetchTopicsData(){
-      return this.$store.dispatch("fetchTopics",{
-        tab: this.activeTab,
-        page: this.topic.datapage[this.activeTab],
-        limit: 8
-      })
-    },
     refreshTabTopic(){
-      this.$store.commit("CHANGE_TOPIC_DATA_PAGE",{
-        tab: 1
-      });
       this.$store.commit("CLEAR_TOPIC_TAB_DATA",{
         tab: this.activeTab
       });

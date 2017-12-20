@@ -4,13 +4,11 @@
     <!-- 信息发表组件 -->
     <releasePage v-show="common.releasepage.isopen" />
     <!-- 话题详情页组件 -->
-    <!-- <topicPage class="dn" /> -->
+    <detailPage />
     <!-- 底部导航切换的页面组件 -->
     <router-view class="main fe ovh" />
     <!-- 提示弹窗 -->
     <infoPopup v-show="common.infopopup.isopen" />
-
-    <!-- <detail /> -->
     <bottomNav />
   </div>
 </template>
@@ -21,8 +19,7 @@ import appBar from './components/appBar'
 import releasePage from './pages/release/release'
 import bottomNav from './components/bottomNav'
 import infoPopup from "./components/infoPopup"
-
-import detail from "./pages/topics/detail"
+import detailPage from "./pages/topics/detail"
 
 
 export default {
@@ -37,7 +34,7 @@ export default {
     releasePage,
     bottomNav,
     infoPopup,
-    detail
+    detailPage
   }
 }
 </script>

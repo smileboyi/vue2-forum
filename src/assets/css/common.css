@@ -8,6 +8,13 @@
     color: #41b883;
   }
 
+  .mu-refresh-control{
+    color: #41b883;
+  }
+  .mu-circle-spinner{
+    border-color: #41b883;
+  }
+
   .animated {
     -webkit-animation-duration: .5s !important;
     animation-duration: .5s !important;

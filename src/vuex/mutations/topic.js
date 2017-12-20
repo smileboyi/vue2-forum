@@ -17,9 +17,10 @@ const topicMutations = {
   },
   [types.CLEAR_TOPIC_TAB_DATA](state, action){
     state.listdata[action.tab] = [];
+    state.datapage[action.tab] = 1;
   },
   [types.CHANGE_TOPIC_DATA_PAGE](state, action){
-    state.datapage[action.tab] = action.page;
+    state.datapage[action.tab] = action.page; 
   },
   //detail
   [types.FETCH_DETAIL_REQ](state){

@@ -5,14 +5,13 @@ const topicActions = {
 
 
   /**
+   * 话题列表
    * @type  {get}
    * @param {tab} [String]    主题分类 
    * @param {page} [Number]   页数
    * @param {limit} [Number]  一次请求条数
    */
-  fetchTopics({ commit, state, dispatch }, params){
-    // 如果在tab数据加载完后再次上拉刷新不再请求
-    if(!state.nomoredata) retrun;
+  fetchTopics({ commit, state }, params){
     // 防止多次请求
     commit(types.FETCH_TOPIC_REQ);
 
@@ -48,11 +47,25 @@ const topicActions = {
   },
 
   /**
+   * 话题详情
    * @type  {get}
    * @param {id} [String]  主题id
    */
-  fetchTopicDatail({ commit, state, dispatch }, params){
-    commit(types.FETCH_TOPIC_REQ);
+  fetchTopicDatail({ commit, state }, params){
+    commit(types.FETCH_DETAIL_REQ);
+    axios({
+      method: 'get',
+      url: 'topic/' + params.id
+    }).then((res) => {
+      commit(types.FETCH_DETAIL_SUC,{
+        data: res.data.data
+      });
+    }).catch((err) => {
+      console.log(err);
+      commit(types.FETCH_DETAIL_ERR,{
+        error: err
+      });
+    })
   }
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="topic-item" @click="gotoTopicDetail">
+  <div class="topic-item" @click="showDetailPage">
     <div class="flex">
       <img class="avatar" :src="data.author.avatar_url" alt="avatar">
       <p class="fe title">{{data.title}}</p>
@@ -45,8 +45,10 @@ export default {
     filterTime
   },
   methods: {
-    gotoTopicDetail(){
-      console.log(this.data);
+    showDetailPage(){
+      this.$store.dispatch("fetchTopicDatail",{
+        id: this.data.id
+      })
     }
   }
 }
