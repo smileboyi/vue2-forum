@@ -1,6 +1,6 @@
 <template>
   <mu-paper>
-    <mu-bottom-nav :value="bottomNav" shift @change="handleChange">
+    <mu-bottom-nav :value="common.bottomnav.active" shift @change="handleChange">
       <mu-bottom-nav-item value="topics" title="话题" to="/topics/话题" icon="whatshot"/>
       <mu-bottom-nav-item value="message" title="未读消息" to="/message/未读消息" icon="drafts">
         <span class="message-num db pab tc" v-if="HAS_NOT_READ_MESSAGES_COUNT">
@@ -17,22 +17,18 @@ import { mapState, mapGetters } from 'vuex'
 
 
 export default {
-  data () {
-    return {
-      bottomNav: 'topics'
-    }
-  },
   computed: {
     ...mapState([
-      'login'
+      'login',
+      'common'
     ]),
     ...mapGetters([
       'HAS_NOT_READ_MESSAGES_COUNT'
     ])
   },
   methods: {
-    handleChange (val) {
-      this.bottomNav = val;
+    handleChange(val){
+      this.$store.commit('SWITCH_ROUTE_PAGE', val);
     }
   }
 }

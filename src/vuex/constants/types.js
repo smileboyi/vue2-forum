@@ -17,6 +17,7 @@ export const FETCH_TOPIC_REQ = 'FETCH_TOPIC_REQ'
 export const FETCH_TOPIC_SUC = 'FETCH_TOPIC_SUC'
 export const FETCH_TOPIC_ERR = 'FETCH_TOPIC_ERR'
 export const CLEAR_TOPIC_TAB_DATA = 'CLEAR_TOPIC_TAB_DATA'
+export const CHANGE_TOPIC_DATA_PAGE = 'CHANGE_TOPIC_DATA_PAGE'
 
 //topics detail
 export const FETCH_DETAIL_REQ = 'FETCH_DETAIL_REQ'
@@ -46,6 +47,9 @@ export const DEFINE_INFOPOPUP_BOTTOM = "DEFINE_INFOPOPUP_BOTTOM"
 //releasepage
 export const SHOW_RELEASEPAGE = "SHOW_RELEASEPAGE"
 export const HIDE_RELEASEPAGE = "HIDE_RELEASEPAGE"
+
+//bottomnav
+export const SWITCH_ROUTE_PAGE = "SWITCH_ROUTE_PAGE"
 /************************common*****************************/
 
 

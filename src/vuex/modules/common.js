@@ -13,6 +13,9 @@ const common = {
     releasepage: {
       // 只有在登录的情况才能设置为true
       isopen: false
+    },
+    bottomnav: {
+      active: 'topics'
     }
   },
   mutations: commonMutations,

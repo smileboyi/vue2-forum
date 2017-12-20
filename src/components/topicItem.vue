@@ -1,35 +1,52 @@
 <template>
   <div class="topic-item" @click="gotoTopicDetail">
     <div class="flex">
-      <img class="avatar" src="/static/avatar2.jpg" alt="avatar">
-      <p class="fe title">基于 vue2 + vuex 构建一个具有 45 个页面的大型单页面应用</p>
-      <span class="tip">share</span>
+      <img class="avatar" :src="data.author.avatar_url" alt="avatar">
+      <p class="fe title">{{data.title}}</p>
+      <span class="tip">{{data.tab}}</span>
     </div>
     <div class="info flex">
-      <span class="user">dfgs</span>
-      <span class="fe time">6天前</span>
+      <span class="name">{{data.author.loginname}}</span>
+      <span class="fe time">{{data.last_reply_at | filterTime}}</span>
       <span class="see">
-        <mu-icon value="visibility" class="pre hauto2" :size="14" color="#D3DCE6" />1000
+        <mu-icon value="visibility" class="pre hauto2" :size="14" color="#D3DCE6" />
+        {{data.visit_count}}
       </span>
       <span class="reply">
-        <mu-icon value="textsms" class="pre hauto2" :size="14" color="#D3DCE6" />36
+        <mu-icon value="textsms" class="pre hauto2" :size="14" color="#D3DCE6" />
+        {{data.reply_count}}
       </span>
     </div>
   </div>
 </template>
 
 <script>
+import { filterTime } from '../assets/js/filters'
+
 export default {
   props: {
-    data: {}
+    data: {
+      author: {
+        avatar_url: String,
+        loginname: String
+      },
+      title: String,
+      tab: String,
+      last_reply_at: String,
+      visit_count: Number,
+      reply_count: Number
+    }
   },
   mounted(){
     this.$nextTick(function () {
     })
   },
+  filters: {
+    filterTime
+  },
   methods: {
     gotoTopicDetail(){
-
+      console.log(this.data);
     }
   }
 }

@@ -24,6 +24,10 @@ const commonMutations = {
   [types.HIDE_RELEASEPAGE](state){
     state.releasepage.isopen = false;
   },
+  //bottomnav
+  [types.SWITCH_ROUTE_PAGE](state, action){
+    state.bottomnav.active = action;
+  }
 }
 
 export default commonMutations;

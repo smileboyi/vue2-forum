@@ -25,10 +25,23 @@ const topicActions = {
         limit: params.limit
       }
     }).then((res) => {
-      commit(types.FETCH_TOPIC_SUC,{
-        tab: params.tab,
-        data: res.data.data
-      });
+      if(res.data.data.length){
+        commit(types.FETCH_TOPIC_SUC,{
+          tab: params.tab,
+          data: res.data.data
+        });
+        //下一次请求的时候页面加1
+        commit(types.CHANGE_TOPIC_DATA_PAGE,{
+          tab: params.tab,
+          page: params.page + 1
+        });
+      }else{
+        //没有数据，返回的数据数组为空时
+        commit(types.CHANGE_TOPIC_DATA_PAGE,{
+          tab: params.tab,
+          page: 0
+        });
+      }
     }).catch((err) => {
       commit(types.FETCH_TOPIC_ERR);
     })

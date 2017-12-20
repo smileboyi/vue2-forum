@@ -19,6 +19,7 @@ export default {
     releaseTopic(){
       if(!this.login.loginstate){
         this.$router.replace({ name: 'user' });
+        this.$store.commit('SWITCH_ROUTE_PAGE', 'user');
         this.$store.dispatch('showInfoPopup', {
           msg: '请先登录',
           bottom: 56,

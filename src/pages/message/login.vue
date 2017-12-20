@@ -11,6 +11,7 @@ export default {
   methods:{
     goToLoginPage(){
       this.$router.replace({ name: 'user' });
+      this.$store.commit('SWITCH_ROUTE_PAGE', 'user');
     }
   }
 }
