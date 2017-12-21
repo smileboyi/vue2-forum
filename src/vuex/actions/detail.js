@@ -45,13 +45,11 @@ const detailActions = {
     }).then((res) => {
       if (res.data.success) {
         // 弹窗提示
-        let text = state.iscollected ? '取消成功' : '收藏成功';
+        let text = params.iscollected ? '取消成功' : '收藏成功';
         dispatch('showInfoPopup', {
           msg: text,
           state: true
         });
-        //改变收藏状态
-        commit('TOGGLE_COLLECT_TOPIC');
         // 刷新个人数据
         dispatch('fetchUserInfo', {
           loginname: params.loginname
@@ -63,6 +61,24 @@ const detailActions = {
         });
       }
     })
+  },
+
+  /**
+   * 点赞
+   * @type  {post}
+   * @param {replyid} [String]     评论id
+   * @param {topicid} [String]     主题id
+   * @param {accesstoken} [String] token
+   */
+  toggleThumb({ commit, state, dispatch }, params) {
+		axios.post('reply/' + params.replyid + '/ups', {
+				accesstoken: params.accesstoken
+		}).then((res) => {
+
+		}).catch((err) => {
+
+		})
+
   }
 
 }

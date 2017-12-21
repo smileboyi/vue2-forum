@@ -26,7 +26,17 @@
 						{{detail.data.replies.length > 99 ? 99 : detail.data.replies.length}}
 					</div>
 				</div>
+				<!-- 没登录时的收藏图标 -->
 				<mu-icon-button 
+					v-if="!login.loginstate"
+					icon="star_border"
+					iconClass="icon"
+					@click="goToLoginPage"
+					slot="right" 
+				/>
+				<!-- 登录后的收藏图标 -->
+				<mu-icon-button 
+				  v-else
 					:icon="checkTopicCollected(detail.data.id) ? 'star': 'star_border'"
 					:iconClass="checkTopicCollected(detail.data.id)? 'icon ac': 'icon'"
 					@click="toggleCollect(detail.data.id)"
@@ -37,12 +47,12 @@
 			<mu-bottom-sheet sheetClass="wh100 comment grail" :open="bottomSheet">
 				<div class="number">{{detail.data.replies.length}}条评论</div>
 				<div class="list ova fe">
-					<div class="item flex" v-for="item in detail.data.replies">
+					<div class="item flex" v-for="(item,i) in detail.data.replies" :key="i">
 						<img class="avatar" :src="item.author.avatar_url" alt="user">
 						<div class="fe">
 							<div class="top">
 								<b class="name">{{item.author.loginname}}</b>
-								<div class="like fr">
+								<div class="like fr" @click="giveLikeStar">
 									<mu-icon class="pre" value="thumb_up" color="#d3dce6" :size="20"/>
 									<span class="pre num">{{item.ups.length}}</span>
 								</div>
@@ -82,7 +92,7 @@ export default {
     ...mapState([
 			'login',
 			'detail',
-    ])
+		])
 	},
 	filters: {
     filterTime
@@ -99,7 +109,6 @@ export default {
 		},
 		toggleCollect(id){
 			let iscollected = this.checkTopicCollected(id);
-			// if(iscollected)
 			if(this.login.loginstate){
 				this.$store.dispatch('fetchToggleCollectTopic', {
 					topic_id : this.detail.data.id,
@@ -108,22 +117,14 @@ export default {
 					iscollected : iscollected
 				})
 			}else{
-				//关闭详情页转到登录页
-				this.$store.commit('HIDE_DETAIL_PAGE');
-        this.$router.replace({ name: 'user' });
-        this.$store.commit('SWITCH_ROUTE_PAGE', 'user');
-        this.$store.dispatch('showInfoPopup', {
-          msg: '请先登录',
-          bottom: 56,
-          state: false
-        })
+				this.goToLoginPage();
 			}
 		},
 		checkTopicCollected(id){
 			let topics = this.login.userinfo.collect_topics;
-			if(!topics){   
-				return false;
-			}
+			//没登录
+			if(!topics) return false;
+
 			let len = topics.length;
 			let state = false;
 			while (len--) {
@@ -133,6 +134,20 @@ export default {
 				}
 			}
 			return state;
+		},
+		goToLoginPage(){
+			//关闭详情页转到登录页
+			this.$store.commit('HIDE_DETAIL_PAGE');
+			this.$router.replace({ name: 'user' });
+			this.$store.commit('SWITCH_ROUTE_PAGE', 'user');
+			this.$store.dispatch('showInfoPopup', {
+				msg: '请先登录',
+				bottom: 56,
+				state: false
+			})
+		},
+		giveLikeStar(){
+
 		}
 	}
 }
@@ -248,6 +263,10 @@ export default {
 				.markdown{
 					padding: 0 8px;
 					font-size: .9rem;
+					.markdown-text{
+						word-wrap:break-word;
+						word-break:break-all;
+					}
 					img{
 						max-width: 100% !important;
 					}

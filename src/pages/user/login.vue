@@ -45,7 +45,7 @@ import { mapState } from 'vuex'
 export default {
   data(){
     return{
-      accessToken:'deb24ad1-62ec-4f17-99c3-d5d9bdd1f48e',
+      accessToken:'c6f42acd-2681-43f2-a4e8-0e66360649c0',
       active:false,
       isShow:false,
     }

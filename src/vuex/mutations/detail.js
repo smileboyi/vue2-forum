@@ -21,9 +21,6 @@ const detailMutations = {
       },
       replies: []
     };
-  },
-  [types.TOGGLE_COLLECT_TOPIC](state){
-    state.iscollected = !state.iscollected;
   }
 }
 
