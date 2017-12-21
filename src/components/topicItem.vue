@@ -38,7 +38,7 @@ export default {
     }
   },
   mounted(){
-    this.$nextTick(function () {
+    this.$nextTick(function() {
     })
   },
   filters: {

@@ -9,7 +9,12 @@
       </mu-appbar>
       <div class="ova fe">
         <!-- 这里是一次性加载完，没有做分页加载 -->
-        <div class="user-topic-item flex" v-for="item in login.userinfo[this.type]">
+        <div 
+          class="user-topic-item flex" 
+          v-for="(item,i) in login.userinfo[this.type]"
+          @click="showDetailPage(item.id)"
+          :key="i"
+        >
           <div class="user-photo">
             <img class="wh100" :src="item.author.avatar_url" alt="user">
           </div>
@@ -45,6 +50,9 @@ export default {
   methods: {
     closeSelf(){
       this.$emit('closeChild');
+    },
+    showDetailPage(id){
+      this.$store.dispatch("fetchTopicDatail",{id});
     }
   }
 }

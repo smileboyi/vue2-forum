@@ -17,14 +17,21 @@ const commonMutations = {
   [types.DEFINE_INFOPOPUP_BOTTOM](state, action){
     state.infopopup.bottom = action.bottom;
   },
-  // infopopup
+  // releasepage
   [types.SHOW_RELEASEPAGE](state){
     state.releasepage.isopen = true;
   },
   [types.HIDE_RELEASEPAGE](state){
     state.releasepage.isopen = false;
   },
-  //bottomnav
+  // detailpage
+  [types.SHOW_DETAIL_PAGE](state){
+    state.detailpage.isopen = true;
+  },
+  [types.HIDE_DETAIL_PAGE](state){
+    state.detailpage.isopen = false;
+  },
+  // bottomnav
   [types.SWITCH_ROUTE_PAGE](state, action){
     state.bottomnav.active = action;
   }

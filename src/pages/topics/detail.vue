@@ -1,50 +1,75 @@
 <template>
-  <div class="pfi not wh100 z100 detail">
-    <h3 class="title">这是title这是title</h3>
-    <mu-flexbox class="info-bar">
-      <img class="avatar" src="/static/avatar2.jpg" alt="user">
-      <span class="name fe">smileboyi</span>
-      <span class="time">1天前</span>
-    </mu-flexbox>
-    <div class="content">
-			你好我是content
-    </div>
-    <mu-appbar class="comment-bar pab nob" title="说点什么吧">
-      <mu-icon-button icon="arrow_back" iconClass="icon" slot="left"/>
-      <div class="edit-btn" @click="openComment">说点什么吧</div>
-      <div class="pre" slot="right">
-        <mu-icon-button icon="chat" iconClass="icon" @click.native="openComment" />
-        <div class="reply-count pab tc">32</div>
-      </div>
-      <mu-icon-button icon="star_border" iconClass="icon" slot="right" @click="toggleCollect" />
-    </mu-appbar>
-		<mu-bottom-sheet sheetClass="wh100 comment grail" :open="bottomSheet">
-			<div class="number">32条评论</div>
-			<div class="list ova fe">
-				<div class="item flex">
-					<img class="avatar" src="/static/avatar2.jpg" alt="user">
-					<div class="fe">
-						<div class="top">
-							<b class="name">fdgsrd</b>
-							<div class="like fr">
-								<mu-icon class="pre" value="thumb_up" color="#d3dce6" :size="20"/>
-								<span class="pre num">3</span>
-							</div>
-						</div>
-						<div class="time">2017-12-23</div>
-						<div class="words">这是一句话，凑成一段话。这是一句话，凑成一段话。这是一句话，凑成一段话。这是一句话，凑成一段话。这是一句话，凑成一段话。这是一句话，凑成一段话。</div>
+  <transition 
+    enter-active-class="animated slideInUp"
+    leave-active-class="animated slideOutDown"
+  >
+		<div class="pfi not wh100 z100 detail ova">
+			<mu-circular-progress class="pfi centre1" v-if="detail.isfetching" color="#41b883" :size="40"/>
+			<h3 class="title">{{detail.data.title}}</h3>
+			<mu-flexbox class="info-bar">
+				<i class="icon avatar" :style="'background-image:url('+ detail.data.author.avatar_url + ')'" />
+				<span class="name fe">{{detail.data.author.loginname}}</span>
+				<span class="time">{{detail.data.last_reply_at | filterTime}}</span>
+			</mu-flexbox>
+			<div class="content" v-html="detail.data.content"></div>
+			<mu-appbar class="comment-bar pfi nob">
+				<mu-icon-button 
+					icon="arrow_back" 
+					iconClass="icon" 
+					slot="left" 
+					@click.native="showDetailPage" 
+				/>
+				<div class="edit-btn" @click="openComment">说点什么吧</div>
+				<div class="pre" slot="right">
+					<mu-icon-button icon="chat" iconClass="icon" @click.native="openComment" />
+					<div class="reply-count pab tc" v-if="detail.data.replies.length">
+						{{detail.data.replies.length > 99 ? 99 : detail.data.replies.length}}
 					</div>
 				</div>
-			</div>
-			<mu-appbar class="comment-bar" title="说点什么吧">
-				<mu-icon-button icon="arrow_back" iconClass="icon" slot="left" @click.native="closeComment" />
-				<div class="edit-btn">说点什么吧</div>
+				<mu-icon-button 
+					:icon="checkTopicCollected(detail.data.id) ? 'star': 'star_border'"
+					:iconClass="checkTopicCollected(detail.data.id)? 'icon ac': 'icon'"
+					@click="toggleCollect(detail.data.id)"
+					slot="right" 
+				/>
 			</mu-appbar>
-		</mu-bottom-sheet>
-  </div>
+
+			<mu-bottom-sheet sheetClass="wh100 comment grail" :open="bottomSheet">
+				<div class="number">{{detail.data.replies.length}}条评论</div>
+				<div class="list ova fe">
+					<div class="item flex" v-for="item in detail.data.replies">
+						<img class="avatar" :src="item.author.avatar_url" alt="user">
+						<div class="fe">
+							<div class="top">
+								<b class="name">{{item.author.loginname}}</b>
+								<div class="like fr">
+									<mu-icon class="pre" value="thumb_up" color="#d3dce6" :size="20"/>
+									<span class="pre num">{{item.ups.length}}</span>
+								</div>
+							</div>
+							<div class="time">{{item.create_at | filterTime}}</div>
+							<div class="markdown" v-html="item.content" />
+						</div>
+					</div>
+				</div>
+				<mu-appbar class="comment-bar">
+					<mu-icon-button 
+						icon="arrow_back" 
+						iconClass="icon" 
+						slot="left" 
+						@click.native="closeComment" 
+					/>
+					<div class="edit-btn">说点什么吧</div>
+				</mu-appbar>
+			</mu-bottom-sheet>
+		</div>
+  </transition>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import { getCookie } from '../../assets/js/cookies.js'
+import { filterTime } from '../../assets/js/filters'
 
 
 export default {
@@ -53,15 +78,61 @@ export default {
 			bottomSheet: false
 		}
 	},
+	computed: {
+    ...mapState([
+			'login',
+			'detail',
+    ])
+	},
+	filters: {
+    filterTime
+  },
 	methods: {
+		showDetailPage(){
+			this.$store.commit("HIDE_DETAIL_PAGE");
+		},
 		openComment(){
 			this.bottomSheet = true;
 		},
 		closeComment(){
 			this.bottomSheet = false;
 		},
-		toggleCollect(){
-
+		toggleCollect(id){
+			let iscollected = this.checkTopicCollected(id);
+			// if(iscollected)
+			if(this.login.loginstate){
+				this.$store.dispatch('fetchToggleCollectTopic', {
+					topic_id : this.detail.data.id,
+					accesstoken : getCookie('accesstoken'),
+					loginname : this.login.data.loginname,
+					iscollected : iscollected
+				})
+			}else{
+				//关闭详情页转到登录页
+				this.$store.commit('HIDE_DETAIL_PAGE');
+        this.$router.replace({ name: 'user' });
+        this.$store.commit('SWITCH_ROUTE_PAGE', 'user');
+        this.$store.dispatch('showInfoPopup', {
+          msg: '请先登录',
+          bottom: 56,
+          state: false
+        })
+			}
+		},
+		checkTopicCollected(id){
+			let topics = this.login.userinfo.collect_topics;
+			if(!topics){   
+				return false;
+			}
+			let len = topics.length;
+			let state = false;
+			while (len--) {
+				if(topics[len].id === id){
+					state = true;
+					break;
+				}
+			}
+			return state;
 		}
 	}
 }
@@ -96,11 +167,17 @@ export default {
     }
     .content{
 			padding: .5rem 1rem 1rem;
+			img{
+				max-width: 100% !important;
+			}
     }
 	}
 	.comment-bar{
 		.icon{
 			color: #1f2d3d;
+			&.ac{
+				color: #fcc015;
+			}
 		}
 		background-color: #fff;
 		box-shadow: 0px -2px 1px #ececec;
@@ -168,9 +245,12 @@ export default {
 					font-size: .8rem;
 					color: #7588a1;
 				}
-				.words{
+				.markdown{
 					padding: 0 8px;
 					font-size: .9rem;
+					img{
+						max-width: 100% !important;
+					}
 				}
 			}
 		}

@@ -5,6 +5,7 @@ import common from './modules/common'
 import login from './modules/login'
 import message from './modules/message'
 import topic from './modules/topic'
+import detail from './modules/detail'
 
 Vue.use(Vuex);
 
@@ -14,7 +15,8 @@ const store = new Vuex.Store({
     common,
     login,
     message,
-    topic
+    topic,
+    detail
   }
 })
 

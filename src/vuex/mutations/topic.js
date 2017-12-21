@@ -2,7 +2,6 @@ import * as types from '../constants/types'
 
 
 const topicMutations = {
-  //topics
   [types.FETCH_TOPIC_REQ](state){
     state.isfetching = true;
   },
@@ -21,25 +20,7 @@ const topicMutations = {
   },
   [types.CHANGE_TOPIC_DATA_PAGE](state, action){
     state.datapage[action.tab] = action.page; 
-  },
-  //detail
-  [types.FETCH_DETAIL_REQ](state){
-    state.isfetching = true;
-  },
-  [types.FETCH_DETAIL_SUC](state, action){
-    state.isfetching = false;
-    state.detaildata = action.data;
-  },
-  [types.FETCH_DETAIL_ERR](state){
-    state.isfetching = false;
-    state.error = action.error;
-  },
-  [types.COLLECT_TOPIC](state){
-    state.isfetching = true;
-  },
-  [types.CANCEL_TOPIC](state){
-    state.isfetching = true;
-  },
+  }
 }
 
 export default topicMutations;

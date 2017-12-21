@@ -4,7 +4,7 @@
     <!-- 信息发表组件 -->
     <releasePage v-show="common.releasepage.isopen" />
     <!-- 话题详情页组件 -->
-    <detailPage />
+    <detailPage v-show="common.detailpage.isopen" />
     <!-- 底部导航切换的页面组件 -->
     <router-view class="main fe ovh" />
     <!-- 提示弹窗 -->

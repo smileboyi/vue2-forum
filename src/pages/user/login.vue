@@ -52,8 +52,8 @@ export default {
   },
   computed: {
     ...mapState([
-        'login',
-        'common'
+      'login',
+      'common'
     ])
   },
   methods: {

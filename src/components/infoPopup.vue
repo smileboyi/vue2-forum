@@ -4,7 +4,7 @@
 		leave-active-class="animated slideOutDown"
 	>
 		<mu-content-block 
-			class="info-popup pfi nob z50" 
+			class="info-popup pfi nob z1000" 
 			:class="{ 'error-info-content-class':!common.infopopup.infostate }"
 			:style="{ bottom: common.infopopup.bottom + 'px' }"
 		>

@@ -44,29 +44,8 @@ const topicActions = {
     }).catch((err) => {
       commit(types.FETCH_TOPIC_ERR);
     })
-  },
-
-  /**
-   * 话题详情
-   * @type  {get}
-   * @param {id} [String]  主题id
-   */
-  fetchTopicDatail({ commit, state }, params){
-    commit(types.FETCH_DETAIL_REQ);
-    axios({
-      method: 'get',
-      url: 'topic/' + params.id
-    }).then((res) => {
-      commit(types.FETCH_DETAIL_SUC,{
-        data: res.data.data
-      });
-    }).catch((err) => {
-      console.log(err);
-      commit(types.FETCH_DETAIL_ERR,{
-        error: err
-      });
-    })
   }
+  
 }
 
 export default topicActions;

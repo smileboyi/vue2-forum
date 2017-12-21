@@ -7,8 +7,14 @@ const login = {
   state: {
     isfetching: false,
     loginstate: false,
-    data:{},
-    userinfo: {}
+    data:{
+      avatar_url: '',
+      loginname: '',
+      id: ''
+    },
+    userinfo: {
+      score: 0,
+    }
   },
   mutations: loginMutations,
   getters: loginGetters,
