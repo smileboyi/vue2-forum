@@ -19,3 +19,10 @@
     -webkit-animation-duration: .5s !important;
     animation-duration: .5s !important;
   }
+
+  .mu-overlay{
+    z-index: 400 !important;
+  }
+  .mu-bottom-sheet{
+    z-index: 500 !important;
+  }

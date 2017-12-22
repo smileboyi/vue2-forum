@@ -12,7 +12,7 @@ const topicActions = {
    * @param {limit} [Number]  一次请求条数
    */
   fetchTopics({ commit, state }, params){
-    // 防止多次请求
+
     commit(types.FETCH_TOPIC_REQ);
 
     axios({

@@ -10,7 +10,6 @@ const messageActions = {
    */
   fetchMessage({ commit, state, dispatch }, params){
 
-    // 防止短时间内多次请求
     commit(types.FETCH_MESSAGE_REQ);
 
     axios({

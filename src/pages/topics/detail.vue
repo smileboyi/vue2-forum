@@ -19,9 +19,9 @@
 					slot="left" 
 					@click.native="showDetailPage" 
 				/>
-				<div class="edit-btn" @click="openComment">说点什么吧</div>
+				<div class="edit-btn" @click="bottomSheet = true">说点什么吧</div>
 				<div class="pre" slot="right">
-					<mu-icon-button icon="chat" iconClass="icon" @click.native="openComment" />
+					<mu-icon-button icon="chat" iconClass="icon" @click.native="bottomSheet = true" />
 					<div class="reply-count pab tc" v-if="detail.data.replies.length">
 						{{detail.data.replies.length > 99 ? 99 : detail.data.replies.length}}
 					</div>
@@ -52,13 +52,13 @@
 						<div class="fe">
 							<div class="top">
 								<b class="name">{{item.author.loginname}}</b>
-								<div class="like fr" @click="giveLikeStar">
+								<div class="like fr" @click="toggleLikeThumb(detail.data.id,item.id,i)">
 									<mu-icon class="pre" value="thumb_up" color="#d3dce6" :size="20"/>
 									<span class="pre num">{{item.ups.length}}</span>
 								</div>
 							</div>
 							<div class="time">{{item.create_at | filterTime}}</div>
-							<div class="markdown" v-html="item.content" />
+							<div class="markdown" v-html="item.content" @click="openComment(item.id)" />
 						</div>
 					</div>
 				</div>
@@ -67,10 +67,11 @@
 						icon="arrow_back" 
 						iconClass="icon" 
 						slot="left" 
-						@click.native="closeComment" 
+						@click.native="bottomSheet = false" 
 					/>
-					<div class="edit-btn">说点什么吧</div>
+					<div class="edit-btn" @click="openComment">说点什么吧</div>
 				</mu-appbar>
+				<commentPage v-show="detail.isopen" :accesstoken="accesstoken" :topicid="detail.data.id" />
 			</mu-bottom-sheet>
 		</div>
   </transition>
@@ -80,6 +81,7 @@
 import { mapState } from 'vuex'
 import { getCookie } from '../../assets/js/cookies.js'
 import { filterTime } from '../../assets/js/filters'
+import commentPage from '../../components/comment'
 
 
 export default {
@@ -92,7 +94,11 @@ export default {
     ...mapState([
 			'login',
 			'detail',
-		])
+		]),
+		accesstoken: function(){  
+			//放在计算属性里面进行缓存结果
+			return getCookie('accesstoken');
+		}
 	},
 	filters: {
     filterTime
@@ -101,18 +107,23 @@ export default {
 		showDetailPage(){
 			this.$store.commit("HIDE_DETAIL_PAGE");
 		},
-		openComment(){
-			this.bottomSheet = true;
-		},
-		closeComment(){
-			this.bottomSheet = false;
+		goToLoginPage(){
+			//关闭详情页转到登录页
+			this.$store.commit('HIDE_DETAIL_PAGE');
+			this.$router.replace({ name: 'user' });
+			this.$store.commit('SWITCH_ROUTE_PAGE', 'user');
+			this.$store.dispatch('showInfoPopup', {
+				msg: '请先登录',
+				bottom: 56,
+				state: false
+			})
 		},
 		toggleCollect(id){
 			let iscollected = this.checkTopicCollected(id);
 			if(this.login.loginstate){
 				this.$store.dispatch('fetchToggleCollectTopic', {
 					topic_id : this.detail.data.id,
-					accesstoken : getCookie('accesstoken'),
+					accesstoken : this.accesstoken,
 					loginname : this.login.data.loginname,
 					iscollected : iscollected
 				})
@@ -135,21 +146,27 @@ export default {
 			}
 			return state;
 		},
-		goToLoginPage(){
-			//关闭详情页转到登录页
-			this.$store.commit('HIDE_DETAIL_PAGE');
-			this.$router.replace({ name: 'user' });
-			this.$store.commit('SWITCH_ROUTE_PAGE', 'user');
-			this.$store.dispatch('showInfoPopup', {
-				msg: '请先登录',
-				bottom: 56,
-				state: false
-			})
+		toggleLikeThumb(topicid,replyid,index){
+			if(this.login.loginstate){
+				this.$store.dispatch('toggleThumb', {
+					topicid, replyid, index,
+					accesstoken: this.accesstoken
+				})
+			}else{
+				this.bottomSheet = false;
+				this.goToLoginPage();
+			}
 		},
-		giveLikeStar(){
-
+		openComment(replyid){
+			let reply_id = typeof(replyid) === 'string' ? replyid : '';
+			this.$store.commit('SHOW_COMMENT_PAGE',{
+				reply_id
+			});
 		}
-	}
+	},
+	components: {
+    commentPage
+  }
 }
 </script>
 
@@ -182,6 +199,10 @@ export default {
     }
     .content{
 			padding: .5rem 1rem 1rem;
+			.markdown-text{
+				word-wrap:break-word;
+				word-break:break-all;
+			}
 			img{
 				max-width: 100% !important;
 			}
@@ -231,6 +252,7 @@ export default {
 		}
 		.list{
 			background-color: #eff2f7;
+			-webkit-overflow-scrolling: touch;
 			.item{
 				margin-top: 6px;
 				padding: .75rem 1rem;

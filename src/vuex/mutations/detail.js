@@ -21,8 +21,28 @@ const detailMutations = {
       },
       replies: []
     };
-  }
+  },
+  [types.SHOW_COMMENT_PAGE](state, action){
+    state.isopen = true;
+    state.reply_id = action.reply_id;
+  },
+  [types.HIDE_COMMENT_PAGE](state){
+    state.isopen = false;
+    state.reply_id = '';
+  },
+  [types.FETCH_COMMENT_REQ](state){
+    state.issuccess = false;
+    state.isfetching = true;
+  },
+  [types.FETCH_COMMENT_SUC](state){
+    state.issuccess = true;
+    state.isfetching = false;
+  },
+  [types.FETCH_COMMENT_ERR](state){
+    state.issuccess = false;
+    state.isfetching = false;
+  },
 }
 
-export default detailMutations;
+export default detailMutations;    
 
