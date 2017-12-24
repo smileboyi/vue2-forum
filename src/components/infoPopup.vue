@@ -1,43 +1,33 @@
 <template>
-	<transition 
-		enter-active-class="animated slideInUp"
-		leave-active-class="animated slideOutDown"
-	>
-		<mu-content-block 
-			class="info-popup pfi nob z1000" 
-			:class="{ 'error-info-content-class':!common.infopopup.infostate }"
-			:style="{ bottom: common.infopopup.bottom + 'px' }"
-		>
-			<p class="info-text">
-				{{ common.infopopup.infomsg }}
-			</p>
-		</mu-content-block>
-	</transition>
+	<mu-snackbar 
+		class="info-popup bsb" 
+		:class="{ 'error-info-class':!common.infopopup.infostate }"
+		:style="{ bottom: common.infopopup.bottom + 'px' }"
+		:message="common.infopopup.infomsg"
+	/>
 </template>
 <style lang="less">
   .info-popup{
-    line-height: 45px;
-    width: 100%;
-    font-size: 1rem;
-    color: #fff;
+		width: 100%;
+		height: 65px;
+		padding: 10px;
+		font-size: .95rem;
+		color: #fff;
 		text-align: left;
 		background-color: #42b884;
-		&.error-info-content-class{
+		&.error-info-class{
 			background-color: #e96900;
-		}
-		.info-text{
-			padding: 0 10px;
-			font-size: .85rem;
 		}
 	}
 </style>
 <script>
 import { mapState } from 'vuex'
 
+
 export default {
 	computed: {
 		...mapState([
-				'common'
+			'common'
 		]),
 	}
 }

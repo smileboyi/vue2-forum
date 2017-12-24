@@ -46,7 +46,7 @@
 
 			<mu-bottom-sheet sheetClass="wh100 comment grail" :open="bottomSheet">
 				<div class="number">{{detail.data.replies.length}}条评论</div>
-				<div class="list ova fe">
+				<div class="list ova fe" v-if="detail.data.replies.length">
 					<div class="item flex" v-for="(item,i) in detail.data.replies" :key="i">
 						<img class="avatar" :src="item.author.avatar_url" alt="user">
 						<div class="fe">
@@ -69,7 +69,9 @@
 						slot="left" 
 						@click.native="bottomSheet = false" 
 					/>
-					<div class="edit-btn" @click="openComment">说点什么吧</div>
+					<!-- 这里这样做是因为避免每次发表评论时都要判断是否登录 -->
+					<div class="edit-btn" @click="bottomSheet=false;goToLoginPage()" v-if="!login.loginstate">说点什么吧</div>
+					<div class="edit-btn" @click="openComment" v-else>说点什么吧</div>
 				</mu-appbar>
 				<commentPage v-show="detail.isopen" :accesstoken="accesstoken" :topicid="detail.data.id" />
 			</mu-bottom-sheet>
@@ -158,10 +160,12 @@ export default {
 			}
 		},
 		openComment(replyid){
-			let reply_id = typeof(replyid) === 'string' ? replyid : '';
-			this.$store.commit('SHOW_COMMENT_PAGE',{
-				reply_id
-			});
+			if(this.login.loginstate){
+				let reply_id = typeof(replyid) === 'string' ? replyid : '';
+				this.$store.commit('SHOW_COMMENT_PAGE',{
+					reply_id
+				});
+			}
 		}
 	},
 	components: {

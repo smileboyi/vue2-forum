@@ -26,3 +26,9 @@
   .mu-bottom-sheet{
     z-index: 500 !important;
   }
+
+  @media only screen and (min-width: 601px){
+    .mu-snackbar{
+      max-width: 350px;
+    }
+  }

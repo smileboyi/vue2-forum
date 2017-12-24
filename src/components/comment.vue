@@ -25,7 +25,6 @@ export default {
     },
     accesstoken: {
       type: String,
-      // required: true,
       default: ''
     }
   },
@@ -39,10 +38,13 @@ export default {
       'login',
       'detail'
     ]),
+    issuccess: function(){
+      return this.detail.issuccess;
+    }
   },
   watch: {
-    detail: function(){
-      console.log(65984);
+    issuccess: function(){
+      //如果评论成功，删除评论文字。不成功，先不删除。
       if(this.detail.issuccess) this.val="";
     }
   },

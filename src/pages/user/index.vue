@@ -1,5 +1,5 @@
 <template>
-  <div class="user">
+  <div class="user pre">
     <login v-if="!login.loginstate" />
     <user v-else />
   </div>

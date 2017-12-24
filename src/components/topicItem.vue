@@ -67,6 +67,8 @@ export default {
     .title{
       margin: 0 .8rem;
       padding-top: .5rem;
+      word-wrap: break-word;
+      word-break: break-all;
     }
     .tip{
       display: inline-block;

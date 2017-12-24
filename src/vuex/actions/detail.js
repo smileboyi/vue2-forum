@@ -50,7 +50,6 @@ const detailActions = {
         //   msg: text,
         //   state: true
         // });
-
         // 刷新个人数据
         dispatch('fetchUserInfo', {
           loginname: params.loginname
@@ -94,6 +93,7 @@ const detailActions = {
       }
 
 		}).catch((err) => {
+      console.log(err);
       dispatch('showInfoPopup', {
         msg: '网骆超时'
       });
@@ -108,7 +108,6 @@ const detailActions = {
    * @param {content} [String]     评论内容
    * @param {reply_id} [String]    如果这个评论是对另一个评论的回复，请务必带上此字段
    */
-
   sendCommentData({ commit, state, dispatch }, params){
 
     //用于防止多次提交
@@ -121,7 +120,6 @@ const detailActions = {
     }).then((res) => {
       commit(types.FETCH_COMMENT_SUC);
       commit(types.HIDE_COMMENT_PAGE);
-      console.log(55555);
       // 刷新页面
       dispatch('fetchTopicDatail', {
         id: params.topicid

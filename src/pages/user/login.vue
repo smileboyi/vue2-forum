@@ -4,7 +4,7 @@
     leave-active-class="animated fadeOut"
     mode="in-out"
   >
-    <div class="login">
+    <div class="login pab wauto2 not">
       <div class="access-token tc">
         <mu-icon 
           class="lock-icon pre" 
@@ -85,6 +85,7 @@ export default {
 
 <style lang="less">
   .login{
+    max-width: 352px;
     .access-token{
       margin-top: 30px;
       .lock-icon{

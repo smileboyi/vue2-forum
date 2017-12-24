@@ -17,6 +17,14 @@ const commonMutations = {
   [types.DEFINE_INFOPOPUP_BOTTOM](state, action){
     state.infopopup.bottom = action.bottom;
   },
+  // dialogalert
+  [types.SHOW_DIALOGALERT](state, action){
+    state.dialogalert.msg = action.msg;
+    state.dialogalert.isopen = true;
+  },
+  [types.HIDE_DIALOGALERT](state){
+    state.dialogalert.isopen = false;
+  },
   // releasepage
   [types.SHOW_RELEASEPAGE](state){
     state.releasepage.isopen = true;

@@ -95,6 +95,7 @@ export default {
       this.$store.commit('USER_LOGOUT');
       this.$store.dispatch('showInfoPopup', {
         msg: '已退出登录',
+        bottom: 56,
         state: true
       })
     },

@@ -19,11 +19,12 @@
         color="#41b883"
         :trigger="el" 
       />
+      <!-- 只在第一次加载tab话题数据时显示，之后用正在加载显示加载状态 -->
       <mu-circular-progress
-      class="pfi centre1" 
-      v-if="isfetching"
-      color="#41b883" 
-      :size="40"
+        class="pfi centre1" 
+        v-if="topic.firstLoading"
+        color="#41b883" 
+        :size="40"
       />
       <div 
         v-for="(tabItem,i) in ['all','good','weex','share','ask','job']" 
@@ -38,7 +39,7 @@
       <mu-infinite-scroll 
         class="topic-list-load" 
         :scroller="scroller" 
-        :loading="loading" 
+        :loading="topic.isfetching && !topic.firstLoading" 
         @load="loadMore"
         loadingText="正在加载 ..."
       />
@@ -47,7 +48,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 import topicItem from '../../components/topicItem'
 import noMoreData from '../../components/noMoreData'
 
@@ -56,10 +57,8 @@ export default {
   data(){
     return {
       el: null,
-      isfetching: false,
       refreshing: false,
       activeTab: 'all',
-      loading: false,
       scroller: null,
       scrollerArr: []  //每个tab的滚动条是独立的
     }
@@ -81,38 +80,26 @@ export default {
   },
   methods: {
     fetchTopicsData(){
-      console.log("446788");
-      return this.$store.dispatch("fetchTopics",{
+      if(this.topic.isfetching) return;
+      this.$store.dispatch("fetchTopics",{
         tab: this.activeTab,
         page: this.topic.datapage[this.activeTab],
         limit: 8
-      })
+      });
     },
-    //下拉刷新时会执行handleTabChange，这时需要检测
     handleTabChange(val) {
-      console.log(1);
       this.activeTab = val;
       this.scroller = this.scrollerArr[val][0];
       // tab数据第一次初始化自动加载，之后上拉加载
       if(this.topic.listdata[val].length === 0){
-        this.isfetching = true;
-        this.fetchTopicsData().then((res) => {
-          this.isfetching = false;
-        }).catch((err) => {
-          this.isfetching = false;
-        })
+        this.$store.commit("CHANGE_ISFIRST_STATE", { state: true });
+        this.fetchTopicsData();
       }
     },
     loadMore(){
       //如果已经返回完数据，将不再请求
       if(!this.topic.datapage[this.activeTab]) return;
-      console.log(2);
-      this.loading = true;
-      this.fetchTopicsData().then((res) => {
-        this.loading = false;
-      }).catch((err) => {
-        this.loading = false;
-      })
+      this.fetchTopicsData();
     },
     refreshTabTopic(){
       this.$store.commit("CLEAR_TOPIC_TAB_DATA",{
@@ -126,6 +113,7 @@ export default {
     noMoreData
   }
 }
+
 </script>
 
 <style lang="less">

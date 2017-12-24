@@ -12,7 +12,6 @@
   "dependencies": {
     "animate.css": "^3.5.2",
     "axios": "^0.17.1",
-    "axios-mock-adapter": "^1.10.0",
     "highlight.js": "^9.12.0",
     "less": "^2.7.3",
     "lodash": "^4.17.4",

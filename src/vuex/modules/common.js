@@ -10,6 +10,10 @@ const common = {
       bottom:"56",
       infomsg: ""
     },
+    dialogalert: {
+      isopen: false,
+      msg: ''
+    },
     releasepage: {
       // 只有在登录的情况才能设置为true
       isopen: false

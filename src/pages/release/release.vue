@@ -4,7 +4,7 @@
     leave-active-class="animated slideOutDown"
   >
     <div class="pfi z50 wh100 release">
-      <!-- <dialogAlert /> -->
+      <dialogAlert />
       <mu-appbar title="发布">
         <mu-icon-button icon="arrow_back" slot="left" @click.native="quitPage" />
       </mu-appbar>
@@ -15,9 +15,9 @@
           underlineFocusClass="underline-focus"
           label="选择模块"
         >
-          <mu-menu-item value="q&a" title="问答"/>
+          <mu-menu-item value="ask" title="问答"/>
           <mu-menu-item value="share" title="分享"/>
-          <mu-menu-item value="recruit" title="招聘"/>
+          <mu-menu-item value="job" title="招聘"/>
         </mu-select-field>
         <mu-text-field 
           label="标题" 
@@ -27,9 +27,9 @@
           hintText="10个字符以上"
         />
         <div class="edit-btn" @click="isopen=true">
-          点击编辑正文
+          {{ topic.btntext }}
         </div>
-        <mu-flat-button label="发布" class="fetch-btn"/>
+        <mu-flat-button label="发布" class="fetch-btn" @click="releaseTopic" />
       </mu-flexbox>
       <mu-bottom-sheet sheetClass="wh100 grail release-edit-page" :open="isopen">
         <mu-tabs
@@ -43,11 +43,11 @@
         <div class="fe ova content" v-show="activeTab === 'tab1'">
           <mu-text-field 
             label="正文" 
-            hintText="话题内容。。。"
             class="edit-main" 
+            hintText="建议使用 Markdown 语法"
             labelFocusClass="label-focus"
             underlineFocusClass="underline-focus"
-            :value="input" 
+            :value="content" 
             @input="update"
             multiLine
             :rows="15" 
@@ -66,50 +66,80 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
 import Marked from 'marked'
-import highlightjs from 'highlight.js'     //很大，500kb
-import 'highlight.js/styles/googlecode.css'
+// import highlightjs from 'highlight.js'     //很大，500kb
+// import 'highlight.js/styles/googlecode.css'
 import dialogAlert from '../../components/dialogAlert'
 import debounce from 'lodash/debounce'
-
+import { getCookie } from '../../assets/js/cookies.js'
 
 export default {
   data(){
     return{
-      moduleVal: "q&a",
+      moduleVal: "ask",
       title: "",
-      input: "",
+      content: this.releaseData(),
       isopen: false,
-      activeTab: 'tab1'
+      activeTab: "tab1"
     }
   },
   computed: {
+    ...mapState([
+      'detail',
+      'topic'
+		]),
     compiledMarkdown: function () {
-      return Marked(this.input, { sanitize: true });
+      return Marked(this.content, { sanitize: true });
     }
   },
   methods: {
+    ...mapMutations([
+      'SHOW_DIALOGALERT',
+      'HIDE_RELEASEPAGE',
+      'CHANGE_BTN_TEXT'
+    ]),
+    releaseData(){
+      return localStorage.getItem('release_data') || '';
+    },
     handleTabChange(val){
       this.activeTab = val;
     },
     update: debounce(function (e) {
-      this.input = e;
+      this.content = e;
     }, 300),
     saveEdit(){
-      // 替换上一次保存的文本
+      localStorage.setItem('release_data', this.content);
+      this.CHANGE_BTN_TEXT({text: "文本已保存，可直接发布"});
       this.isopen = false;
     },
     cancelEdit(){
-      // 换为上一次保存的文本
       this.isopen = false;
     },
+    releaseTopic(){
+      if(this.detail.isfetching) return;
+      if(this.title.trim().length < 10){
+        this.SHOW_DIALOGALERT({msg: "话题标题字数不能小于10个"});
+        return;
+      }
+      if(this.content.trim()==''){
+        this.SHOW_DIALOGALERT({msg: "请输入话题内容"});
+        return;
+      }
+      this.$store.dispatch("fetchReleaseTopic",{
+        title: this.title,
+        tab: this.moduleVal,
+        content: this.content,
+        accesstoken: getCookie('accesstoken')
+      });
+    },
     quitPage(){
-      this.$store.commit('HIDE_RELEASEPAGE');
+      this.HIDE_RELEASEPAGE();
     }
   },
   components: {
     dialogAlert,
-    highlightjs
+    // highlightjs
   }
 }
 </script>

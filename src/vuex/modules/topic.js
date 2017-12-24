@@ -3,7 +3,9 @@ import topicMutations from '../mutations/topic'
 
 const topic = {
   state: {
-    isfatching: false,
+    btntext: '点击编辑正文',
+    isfetching: false,
+    firstLoading: true,
     listdata: {
       all: [],
       good: [],
