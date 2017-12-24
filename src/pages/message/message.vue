@@ -9,7 +9,11 @@
 			</h4>
 			<div class="list">
 				<p class="no-msg tc" v-if="!HAS_NOT_READ_MESSAGES_COUNT">没有消息</p>
-				<div class="item" v-for="(item,i) in message.data.hasnot_read_messages" :key="i">
+				<div class="item" 
+					v-for="(item,i) in message.data.hasnot_read_messages" 
+					@click="showDetailPage(item.topic.id)"
+					:key="i"
+				>
 					<div class="bar flex">
 						<span class="name">来自<b>{{item.author.loginname}}</b></span>
 						<span class="time">{{item.reply.create_at | filterTime}}</span>
@@ -24,7 +28,11 @@
 			<h4 class="tip pre">已读消息</h4>
 			<div class="list">
 				<p class="no-msg tc" v-if="!HAS_READ_MESSAGES_COUNT">没有消息</p>
-				<div class="item" v-for="(item,i) in message.data.has_read_messages" :key="i">
+				<div class="item" 
+					v-for="(item,i) in message.data.has_read_messages" 
+					@click="showDetailPage(item.topic.id)"
+					:key="i"
+				>
 					<div class="bar flex">
 						<span class="name">来自<b>{{item.author.loginname}}</b></span>
 						<span class="time">{{item.reply.create_at | filterTime}}</span>
@@ -87,6 +95,9 @@ export default {
 			this.$store.dispatch('fetchMarkAllMsg', {
 				accesstoken: this.accesstoken
 			})
+		},
+		showDetailPage(id){
+			this.$store.dispatch("fetchTopicDatail",{id});
 		}
   }
 }

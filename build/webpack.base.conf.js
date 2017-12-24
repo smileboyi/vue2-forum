@@ -77,7 +77,7 @@ module.exports = {
       {  //新增
         test: /\.css$/,  
         include: [  
-          '/src/',//表示在src目录下的css 
+          '/src/assets/css',//表示在src目录下的css 
         ],  
         loader: 'style-loader!css-loader'  
       },  

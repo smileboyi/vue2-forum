@@ -4,7 +4,7 @@
     leave-active-class="animated fadeOut"
     mode="out-in"
   >
-    <div>
+    <div class="user">
       <mu-flexbox class="user-flex">
         <div class="user-photo">
           <img class="wh100" :src="login.data.avatar_url" alt="user">
@@ -122,61 +122,63 @@ export default {
 </script>
 
 <style lang="less">
-  .user-flex{
-    height: 4.375rem;
-    margin-top: 1rem;
-    padding: 0 12px;
-    background-color: #fff;
-    .user-photo{
-      height: 3.125rem;
-      width: 3.125rem;
-    }
-    .user-info{
-      height: 2.875rem;
-      margin-left: 12px;
-      font-size: 1rem;
-      .user-id{
-        max-width: 18rem;
+  .user{
+    .user-flex{
+      height: 4.375rem;
+      margin-top: 1rem;
+      padding: 0 12px;
+      background-color: #fff;
+      .user-photo{
+        height: 3.125rem;
+        width: 3.125rem;
       }
-      .user-score{
-        top: 0.2rem; 
-        padding: 1px 6px;
-        white-space:nowrap;
-        font-size: .85rem;
-        background-color: #eff2f7;
-        border-radius: 18px;
-        .material-icons{
-          line-height: 20px;
-          margin-right: 2px;
-        }   
-      }
-    }
-  }
-  .topic-list{
-    padding: 0;
-    margin: 1rem 0;
-    background-color: #fff;
-    .mu-item{
-      position: relative;
-      padding-left: 45px;
-      line-height: 45px;
-      border-bottom: 1px solid #e6eaf2;
-      .mu-item-content{
-        font-size: .85rem;
+      .user-info{
+        height: 2.875rem;
+        margin-left: 12px;
+        font-size: 1rem;
+        .user-id{
+          max-width: 18rem;
+        }
+        .user-score{
+          top: 0.2rem; 
+          padding: 1px 6px;
+          white-space:nowrap;
+          font-size: .85rem;
+          background-color: #eff2f7;
+          border-radius: 18px;
+          .material-icons{
+            line-height: 20px;
+            margin-right: 2px;
+          }   
+        }
       }
     }
-    .topic-num{
-      position: absolute;
-      right: -1rem;
-      height: 21px;
-      min-width: 21px;
-      justify-content: center;
-      background-color: #e5e9f2;
-      border-radius: 50%;
+    .topic-list{
+      padding: 0;
+      margin: 1rem 0;
+      background-color: #fff;
+      .mu-item{
+        position: relative;
+        padding-left: 45px;
+        line-height: 45px;
+        border-bottom: 1px solid #e6eaf2;
+        .mu-item-content{
+          font-size: .85rem;
+        }
+      }
+      .topic-num{
+        position: absolute;
+        right: -1rem;
+        height: 21px;
+        min-width: 21px;
+        justify-content: center;
+        background-color: #e5e9f2;
+        border-radius: 50%;
+      }
     }
-  }
-  .logout-button{
-    height: 45px;
-    background-color: #fff;
+    .logout-button{
+      height: 45px;
+      background-color: #fff;
+    }
   }
 </style>

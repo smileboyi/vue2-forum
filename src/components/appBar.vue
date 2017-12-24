@@ -1,5 +1,5 @@
 <template>
-  <mu-appbar class="tc pre">
+  <mu-appbar class="tc pre top-bar">
     <img class="logo pab centre1" src="../assets/images/logo.png" alt="logo">
     <mu-flat-button label="发布" slot="right" @click.native="releaseTopic" />
   </mu-appbar>
@@ -35,8 +35,7 @@ export default {
 </script>
 
 <style lang="less">
-  .mu-appbar{
-    background-color: rgba(2, 151, 86, 0.9);
+  .top-bar{
     .mu-appbar-title{
       .logo{
         width: 30px;

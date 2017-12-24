@@ -55,7 +55,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: './',   //new，将/改为./
+    assetsPublicPath: '/',
 
     /**
      * Source Maps

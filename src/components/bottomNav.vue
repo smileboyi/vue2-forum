@@ -1,6 +1,6 @@
 <template>
   <mu-paper>
-    <mu-bottom-nav :value="common.bottomnav.active" shift @change="handleChange">
+    <mu-bottom-nav class="bottom-bar" :value="common.bottomnav.active" shift @change="handleChange">
       <mu-bottom-nav-item value="topics" title="话题" to="/topics/话题" icon="whatshot"/>
       <mu-bottom-nav-item value="message" title="未读消息" to="/message/未读消息" icon="drafts">
         <span class="message-num db pab tc" v-if="HAS_NOT_READ_MESSAGES_COUNT">
@@ -35,8 +35,7 @@ export default {
 </script>
 
 <style lang="less">
-  .mu-bottom-nav-shift{
-    background-color: #1f2d3d;
+  .bottom-bar{
     .mu-buttom-item-wrapper{
       position: relative;
       .message-num{

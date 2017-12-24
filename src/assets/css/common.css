@@ -15,6 +15,13 @@
     border-color: #41b883;
   }
 
+  .mu-appbar{
+    background-color: rgba(2, 151, 86, 0.9);
+  }
+
+  .mu-bottom-nav-shift{
+    background-color: #1f2d3d;
+  }
   .animated {
     -webkit-animation-duration: .5s !important;
     animation-duration: .5s !important;
