@@ -1,41 +1,41 @@
 <template>
-  <div class="topics">
-    <div class="wh100 grail ovh">
-      <mu-tabs 
-        :value="activeTab" 
-        lineClass="tabs-line"
-        @change="handleTabChange"
-      >
-        <mu-tab value="all" title="全部"/>
-        <mu-tab value="good" title="精华"/>
-        <mu-tab value="weex" title="weex"/>
-        <mu-tab value="share" title="分享"/>
-        <mu-tab value="ask" title="问答"/>
-        <mu-tab value="job" title="招聘"/>
-      </mu-tabs>
+  <div class="topics grail">
+    <mu-tabs 
+      :value="activeTab" 
+      lineClass="tabs-line"
+      @change="handleTabChange"
+    >
+      <mu-tab value="all" title="全部"/>
+      <mu-tab value="good" title="精华"/>
+      <mu-tab value="weex" title="weex"/>
+      <mu-tab value="share" title="分享"/>
+      <mu-tab value="ask" title="问答"/>
+      <mu-tab value="job" title="招聘"/>
+    </mu-tabs>
+    <!-- 只在第一次加载tab话题数据时显示，之后用正在加载显示加载状态 -->
+    <mu-circular-progress
+      class="pfi centre1" 
+      v-if="topic.firstLoading"
+      color="#41b883" 
+      :size="40"
+    />
+    <div 
+      v-for="(tabItem,i) in ['all','good','weex','share','ask','job']" 
+      v-show="activeTab === tabItem" 
+      class="topic-list fe ova" 
+      :ref="tabItem"
+      :key="i"  
+    >
+      <!-- 这个组件必须放在scroller里面 -->
       <mu-refresh-control 
         @refresh="refreshTabTopic"      
         :refreshing="refreshing" 
         color="#41b883"
-        :trigger="el" 
+        :trigger="scrollerArr[i]" 
+        :data-item="tabItem"
       />
-      <!-- 只在第一次加载tab话题数据时显示，之后用正在加载显示加载状态 -->
-      <mu-circular-progress
-        class="pfi centre1" 
-        v-if="topic.firstLoading"
-        color="#41b883" 
-        :size="40"
-      />
-      <div 
-        v-for="(tabItem,i) in ['all','good','weex','share','ask','job']" 
-        v-show="activeTab === tabItem" 
-        class="fe topic-list" 
-        :ref="tabItem"
-        :key="i"  
-      >
-        <topicItem v-for="(data,i) in topic.listdata[tabItem]" :key="i" :data="data" />
-        <noMoreData v-if="!topic.datapage[tabItem]" />
-      </div>
+      <topicItem v-for="(data,i) in topic.listdata[tabItem]" :key="i" :data="data" />
+      <noMoreData v-if="!topic.datapage[tabItem]" />
       <mu-infinite-scroll 
         class="topic-list-load" 
         :scroller="scroller" 
@@ -56,8 +56,15 @@ import noMoreData from '../../components/noMoreData'
 export default {
   data(){
     return {
-      el: null,
-      refreshing: false,
+      trigger: null,
+      refreshing: {
+        'all': false,
+        'good': false,
+        'weex': false,
+        'share': false,
+        'ask': false,
+        'job': false
+      },
       activeTab: 'all',
       scroller: null,
       scrollerArr: []  //每个tab的滚动条是独立的
@@ -71,7 +78,7 @@ export default {
   mounted(){
     this.$nextTick(function () {
       this.scrollerArr = this.$refs;
-      this.el = this.$el;
+      this.trigger = this.$refs.all;
       // 初始化第一个tab数据
       if(!this.topic.listdata.all.length){
         this.handleTabChange('all');
@@ -118,6 +125,7 @@ export default {
 
 <style lang="less">
   .topics{
+    min-height: 0;
     background-color: #eff2f7;
     .mu-tabs{
       background-color: #fff;
@@ -130,8 +138,6 @@ export default {
     }
     .topic-list{
       margin: 0;
-      overflow-x: hidden;
-      overflow-y: auto;
       -webkit-overflow-scrolling: touch;
     }
     .topic-list-load{

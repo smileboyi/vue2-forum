@@ -1,21 +1,26 @@
 # vue2-forum
 
-> A Vue.js project
+> 重构vue中文论坛，这个项目参照另一个项目[vue-community](https://github.com/Musiky/vue-community)
 
-## Build Setup
+## 项目地址
+[demo地址](https://smileboyi.github.io/pages/vue2-forum)
+
+> 手机端预览
+
+![code](./static/exported_qrcode_image.png)
+
+## 安装步骤
 
 ``` bash
-# install dependencies
+# git clone后安装依赖
 npm install
 
-# serve with hot reload at localhost:8080
+# 开发环境 http://localhost:8080
 npm run dev
 
-# build for production with minification
+# 生产环境打包
 npm run build
 
-# build for production and view the bundle analyzer report
-npm run build --report
+# 使用http-server访问dist资源
+npm run server
 ```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
