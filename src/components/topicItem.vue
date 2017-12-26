@@ -23,6 +23,7 @@
 <script>
 import { filterTime } from '../assets/js/filters'
 
+
 export default {
   props: {
     data: {

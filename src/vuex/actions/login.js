@@ -1,5 +1,5 @@
 import * as types from '../constants/types'
-import { setCookie, getCookie, delCookie } from '../../assets/js/cookies'
+import { setCookie } from '../../assets/js/cookies'
 import axios from 'axios'
 
 
@@ -29,6 +29,11 @@ const loginActions = {
 
       // 将 accesstoken 缓存在 cookie 中
       setCookie('accesstoken', params.accesstoken);
+
+      // 将 accesstoken 存于store中
+      commit(types.SET_ACCESSTOKEN, {
+        accesstoken: params.accesstoken
+      });
 
       // 获取基本个人数据
       commit(types.FETCH_LOGIN_SUC, {

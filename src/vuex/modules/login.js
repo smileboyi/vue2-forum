@@ -5,6 +5,7 @@ import loginGetters from '../getters/login'
 
 const login = {
   state: {
+    accesstoken: '',
     isfetching: false,
     loginstate: false,
     data:{

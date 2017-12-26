@@ -48,21 +48,19 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex'
-import { getCookie } from '../../assets/js/cookies.js'
 import { filterTime } from '../../assets/js/filters.js'
 
 
 export default {
   data () {
-		let accesstoken = getCookie('accesstoken');
     return {
-      refreshing: false,
-			trigger: null,
-			accesstoken
+			refreshing: false,
+			trigger: null
     }
 	},
 	computed: {
     ...mapState([
+			'login',
 			'message'
 		]),
 		...mapGetters([
@@ -83,7 +81,7 @@ export default {
     refresh() {
       this.refreshing = true;
 			this.$store.dispatch('fetchMessage', {
-				accesstoken: this.accesstoken
+				accesstoken: this.login.accesstoken
 			}).then((res) => {
 				// finally不是原生的
 				this.refreshing = false;
@@ -93,7 +91,7 @@ export default {
 		},
 		markAllRead(){
 			this.$store.dispatch('fetchMarkAllMsg', {
-				accesstoken: this.accesstoken
+				accesstoken: this.login.accesstoken
 			})
 		},
 		showDetailPage(id){

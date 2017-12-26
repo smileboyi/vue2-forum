@@ -20,6 +20,9 @@ const loginMutations = {
   },
   [types.USER_LOGOUT](state){
     state.loginstate = false;
+  },
+  [types.SET_ACCESSTOKEN](state, action){
+    state.accesstoken = action.accesstoken;
   }
 }
 

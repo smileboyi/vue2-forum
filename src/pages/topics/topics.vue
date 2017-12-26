@@ -29,16 +29,15 @@
       <!-- 这个组件必须放在scroller里面 -->
       <mu-refresh-control 
         @refresh="refreshTabTopic"      
-        :refreshing="refreshing" 
+        :refreshing="refreshingObj[tabItem]" 
+        :trigger="listRefObj[tabItem]" 
         color="#41b883"
-        :trigger="scrollerArr[i]" 
-        :data-item="tabItem"
       />
       <topicItem v-for="(data,i) in topic.listdata[tabItem]" :key="i" :data="data" />
       <noMoreData v-if="!topic.datapage[tabItem]" />
       <mu-infinite-scroll 
         class="topic-list-load" 
-        :scroller="scroller" 
+        :scroller="listRefObj[tabItem]" 
         :loading="topic.isfetching && !topic.firstLoading" 
         @load="loadMore"
         loadingText="正在加载 ..."
@@ -56,8 +55,7 @@ import noMoreData from '../../components/noMoreData'
 export default {
   data(){
     return {
-      trigger: null,
-      refreshing: {
+      refreshingObj: {
         'all': false,
         'good': false,
         'weex': false,
@@ -66,8 +64,14 @@ export default {
         'job': false
       },
       activeTab: 'all',
-      scroller: null,
-      scrollerArr: []  //每个tab的滚动条是独立的
+      listRefObj: {
+        all: null,
+        good: null,
+        weex: null,
+        share: null,
+        ask: null,
+        job: null
+      }  //每个tab的滚动条是独立的
     }
   },
   computed: {
@@ -77,8 +81,12 @@ export default {
   },
   mounted(){
     this.$nextTick(function () {
-      this.scrollerArr = this.$refs;
-      this.trigger = this.$refs.all;
+      this.listRefObj.all = this.$refs.all[0];
+      this.listRefObj.good = this.$refs.good[0];
+      this.listRefObj.weex = this.$refs.weex[0];
+      this.listRefObj.share = this.$refs.share[0];
+      this.listRefObj.ask = this.$refs.ask[0];
+      this.listRefObj.job = this.$refs.job[0];
       // 初始化第一个tab数据
       if(!this.topic.listdata.all.length){
         this.handleTabChange('all');
@@ -96,7 +104,6 @@ export default {
     },
     handleTabChange(val) {
       this.activeTab = val;
-      this.scroller = this.scrollerArr[val][0];
       // tab数据第一次初始化自动加载，之后上拉加载
       if(this.topic.listdata[val].length === 0){
         this.$store.commit("CHANGE_ISFIRST_STATE", { state: true });
@@ -125,7 +132,7 @@ export default {
 
 <style lang="less">
   .topics{
-    min-height: 0;
+    min-height: 0 !important;
     background-color: #eff2f7;
     .mu-tabs{
       background-color: #fff;

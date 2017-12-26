@@ -9,6 +9,7 @@
 export const FETCH_LOGIN_REQ = 'FETCH_LOGIN_REQ'  //用于请求时防止再次请求
 export const FETCH_LOGIN_SUC = 'FETCH_LOGIN_SUC'
 export const FETCH_LOGIN_ERR = 'FETCH_LOGIN_ERR'
+export const SET_ACCESSTOKEN = "SET_ACCESSTOKEN"
 export const FETCH_USERINFO = 'FETCH_USERINFO'
 export const USER_LOGOUT = 'USER_LOGOUT'
 

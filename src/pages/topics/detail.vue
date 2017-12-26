@@ -3,7 +3,7 @@
     enter-active-class="animated slideInUp"
     leave-active-class="animated slideOutDown"
   >
-		<div class="pfi not wh100 z100 detail ova">
+		<div class="pfi not wh100 z100 detail ovh">
 			<mu-circular-progress class="pfi centre1" v-if="detail.isfetching" color="#41b883" :size="40"/>
 			<h3 class="title">{{detail.data.title}}</h3>
 			<mu-flexbox class="info-bar">
@@ -73,7 +73,7 @@
 					<div class="edit-btn" @click="bottomSheet=false;goToLoginPage()" v-if="!login.loginstate">说点什么吧</div>
 					<div class="edit-btn" @click="openComment" v-else>说点什么吧</div>
 				</mu-appbar>
-				<commentPage v-show="detail.isopen" :accesstoken="accesstoken" :topicid="detail.data.id" />
+				<commentPage v-show="detail.isopen" :accesstoken="login.accesstoken" :topicid="detail.data.id" />
 			</mu-bottom-sheet>
 		</div>
   </transition>
@@ -81,7 +81,6 @@
 
 <script>
 import { mapState } from 'vuex'
-import { getCookie } from '../../assets/js/cookies.js'
 import { filterTime } from '../../assets/js/filters'
 import commentPage from '../../components/comment'
 
@@ -96,11 +95,7 @@ export default {
     ...mapState([
 			'login',
 			'detail',
-		]),
-		accesstoken: function(){  
-			//放在计算属性里面进行缓存结果
-			return getCookie('accesstoken');
-		}
+		])
 	},
 	filters: {
     filterTime
@@ -125,7 +120,7 @@ export default {
 			if(this.login.loginstate){
 				this.$store.dispatch('fetchToggleCollectTopic', {
 					topic_id : this.detail.data.id,
-					accesstoken : this.accesstoken,
+					accesstoken : this.login.accesstoken,
 					loginname : this.login.data.loginname,
 					iscollected : iscollected
 				})
@@ -152,7 +147,7 @@ export default {
 			if(this.login.loginstate){
 				this.$store.dispatch('toggleThumb', {
 					topicid, replyid, index,
-					accesstoken: this.accesstoken
+					accesstoken: this.login.accesstoken
 				})
 			}else{
 				this.bottomSheet = false;
