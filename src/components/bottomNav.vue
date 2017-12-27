@@ -3,9 +3,11 @@
     <mu-bottom-nav class="bottom-bar" :value="common.bottomnav.active" shift @change="handleChange">
       <mu-bottom-nav-item value="topics" title="话题" to="/topics/话题" icon="whatshot"/>
       <mu-bottom-nav-item value="message" title="未读消息" to="/message/未读消息" icon="drafts">
-        <span class="message-num db pab tc" v-if="HAS_NOT_READ_MESSAGES_COUNT">
-          {{ HAS_NOT_READ_MESSAGES_COUNT }}
-        </span>
+        <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+          <span class="message-num db pab tc" v-if="login.loginstate && HAS_NOT_READ_MESSAGES_COUNT">
+            {{ HAS_NOT_READ_MESSAGES_COUNT }}
+          </span>
+        </transition>
       </mu-bottom-nav-item>
       <mu-bottom-nav-item value="user" title="我的" to="/user/我的" icon="face"/>
     </mu-bottom-nav>
