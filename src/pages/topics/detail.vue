@@ -3,7 +3,7 @@
     enter-active-class="animated slideInUp"
     leave-active-class="animated slideOutDown"
   >
-		<div class="pfi not wh100 z100 detail ovh">
+		<div class="pfi not wh100 z100 detail ova">
 			<mu-circular-progress class="pfi centre1" v-if="detail.isfetching" color="#41b883" :size="40"/>
 			<h3 class="title">{{detail.data.title}}</h3>
 			<mu-flexbox class="info-bar">
